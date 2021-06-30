@@ -1,6 +1,7 @@
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/car_tile/car_tile_widget.dart';
+import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
                  child: Center(child: Text(
                    'Car Helper',
                    style: GoogleFonts.lexendDeca(
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ))
@@ -61,8 +62,8 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
           child: Column(
             children: [
-              Text('My Cars', style: GoogleFonts.lexendDeca(
-                  fontSize: 20,
+              Text('Meus Carros', style: GoogleFonts.lexendDeca(
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[800],
                 )),
@@ -77,21 +78,7 @@ class HomePage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: (){}, 
-                child: Text('Add New Car'),
-              style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-               borderRadius: new BorderRadius.circular(15),
-               ),
-                primary: AppColors.tertiary,
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                textStyle: GoogleFonts.montserrat(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                )),
-              ),
+              PrimaryButtonWidget(label: 'Adicionar Carro', onPressed: () {Navigator.of(context).pushNamed('/add_car');})
             ],
           ),
         ),
