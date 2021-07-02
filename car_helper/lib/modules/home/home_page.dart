@@ -1,5 +1,5 @@
 
-import 'package:car_helper/modules/home/home_page_controller.dart';
+import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/app_bar_home/app_bar_home_widget.dart';
 import 'package:car_helper/shared/widgets/car_tile/car_tile_widget.dart';
@@ -39,10 +39,10 @@ class HomePage extends StatelessWidget {
               ),
               Expanded(
                 child: FutureBuilder(
-                  future: Provider.of<HomePageController>(context, listen: false).loadCars(),
+                  future: Provider.of<CarsProvider>(context, listen: false).loadCars(),
                   builder: (context, snapshot) => snapshot.connectionState == ConnectionState.waiting
                     ? Center(child: CircularProgressIndicator(),) 
-                    : Consumer<HomePageController> (
+                    : Consumer<CarsProvider> (
                       builder: (ctx, cars, ch) => cars.itemsCount == 0 ? Center(
                         child: Text(
                           'Nenhum carro cadastrado!',

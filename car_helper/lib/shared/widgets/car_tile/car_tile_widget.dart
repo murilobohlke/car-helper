@@ -32,7 +32,7 @@ class CarTileWidget extends StatelessWidget {
                     img,
                     height: double.infinity,
                     width: 120,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   )),
               Expanded(
                 child: Container(
