@@ -8,6 +8,7 @@ class TextInputWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
+  final TextInputType? keyboard;
 
   const TextInputWidget({ 
     Key? key, 
@@ -16,7 +17,8 @@ class TextInputWidget extends StatelessWidget {
     this.initialValue, 
     this.validator, 
     this.controller, 
-    this.onChanged }) : super(key: key);
+    this.onChanged,
+    this.keyboard = TextInputType.text }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,10 @@ class TextInputWidget extends StatelessWidget {
            borderRadius: BorderRadius.circular(15),
         ),
         child: TextFormField(
+          keyboardType: keyboard ,
+          controller: controller,
+          validator: validator,
+          initialValue: initialValue,
           style: TextStyle(color: AppColors.primary),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.zero,

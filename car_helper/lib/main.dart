@@ -1,12 +1,18 @@
 import 'package:car_helper/modules/add_car/add_car_page.dart';
 import 'package:car_helper/modules/home/home_page.dart';
+import 'package:car_helper/modules/home/home_page_controller.dart';
 import 'package:car_helper/modules/info_car/info_car_page.dart';
 import 'package:car_helper/modules/refueling/refueling_page.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(AppWidget());
+  runApp(ChangeNotifierProvider(
+    create: (context) => HomePageController(),
+    child: AppWidget()
+    )
+  );
 }
 
 class AppWidget extends StatelessWidget {

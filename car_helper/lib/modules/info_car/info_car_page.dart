@@ -33,8 +33,11 @@ class _InfoCarPageState extends State<InfoCarPage> {
   ); 
     return Scaffold(
       appBar: AppBar(
-        title: Text(car.model),
+        title: Text(car.model!),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon(FontAwesomeIcons.cog))
+        ],
       ),
       body:[InfoCarRefuelingPage(), InfoCarHomePage(car: car,), InfoCarGalleryPage()][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ class CarTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var img = File(data.image!);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed('/info_car', arguments: data);
@@ -25,8 +28,8 @@ class CarTileWidget extends StatelessWidget {
             children: [
               ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    data.image,
+                  child: Image.file(
+                    img,
                     height: double.infinity,
                     width: 120,
                     fit: BoxFit.fill,
@@ -37,13 +40,13 @@ class CarTileWidget extends StatelessWidget {
                   margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white.withOpacity(0.15),
+                    color: Colors.white.withOpacity(0.25),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        data.model,
+                        data.model!,
                         style: GoogleFonts.lexendDeca(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -54,7 +57,7 @@ class CarTileWidget extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        data.brand,
+                        data.brand!,
                         style: GoogleFonts.lexendDeca(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
