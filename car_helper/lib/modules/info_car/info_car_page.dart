@@ -1,3 +1,4 @@
+
 import 'package:car_helper/modules/info_car/info_car_gallery/info_car_gallery_page.dart';
 import 'package:car_helper/modules/info_car/info_car_home/info_car_home_page.dart';
 import 'package:car_helper/modules/info_car/info_car_refueling/info_car_refueling_page.dart';
@@ -7,16 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
 class InfoCarPage extends StatefulWidget {
-  const InfoCarPage({ Key? key }) : super(key: key);
+  const InfoCarPage({Key? key}) : super(key: key);
 
   @override
   _InfoCarPageState createState() => _InfoCarPageState();
 }
 
-class _InfoCarPageState extends State<InfoCarPage> {  
+class _InfoCarPageState extends State<InfoCarPage> {
   int _selectedIndex = 1;
-  
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -28,35 +30,43 @@ class _InfoCarPageState extends State<InfoCarPage> {
     // final height = MediaQuery.of(context).size.height;
     final CarModel car = ModalRoute.of(context)!.settings.arguments as CarModel;
 
-     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarBrightness: Brightness.dark)
-  ); 
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
     return Scaffold(
       appBar: AppBar(
         title: Text(car.model!),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(FontAwesomeIcons.cog))
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/add_car', arguments: car );
+              },
+              icon: Icon(FontAwesomeIcons.cog))
         ],
       ),
-      body:[InfoCarRefuelingPage(), InfoCarHomePage(car: car,), InfoCarGalleryPage()][_selectedIndex],
+      body: [
+        InfoCarRefuelingPage(car:car),
+        InfoCarHomePage(car: car,),
+        InfoCarGalleryPage(car: car,)
+      ][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: AppColors.contrastBackground,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.gasPump),
             label: 'Histórico',
-            backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
+            activeIcon: Icon(
+              FontAwesomeIcons.home,
+              color: AppColors.tertiary,
+            ),
             icon: Icon(FontAwesomeIcons.home),
             label: 'Home',
-            backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.image),
             label: 'Galeria',
-            backgroundColor: Colors.purple,
           ),
         ],
         currentIndex: _selectedIndex,

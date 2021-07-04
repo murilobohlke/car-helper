@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
                 child: FutureBuilder(
                   future: Provider.of<CarsProvider>(context, listen: false).loadCars(),
                   builder: (context, snapshot) => snapshot.connectionState == ConnectionState.waiting
-                    ? Center(child: CircularProgressIndicator(),) 
+                    ? Center(child: CircularProgressIndicator(color: AppColors.tertiary,),) 
                     : Consumer<CarsProvider> (
                       builder: (ctx, cars, ch) => cars.itemsCount == 0 ? Center(
                         child: Text(

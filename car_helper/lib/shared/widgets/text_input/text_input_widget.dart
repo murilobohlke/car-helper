@@ -1,5 +1,6 @@
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextInputWidget extends StatelessWidget {
   final String label;
@@ -35,11 +36,17 @@ class TextInputWidget extends StatelessWidget {
           controller: controller,
           validator: validator,
           initialValue: initialValue,
-          style: TextStyle(color: AppColors.primary),
+          style: GoogleFonts.lexendDeca(
+            fontSize: 16,
+            color: AppColors.primary,
+          ),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.zero,
               labelText: label,
-              labelStyle: TextStyle(color: AppColors.tertiary),
+              labelStyle:  GoogleFonts.lexendDeca(
+                fontSize: 16,
+                color: AppColors.tertiary,
+              ),
               icon: Icon(
                 icon,
                 color: AppColors.secondary,

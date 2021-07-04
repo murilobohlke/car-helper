@@ -10,7 +10,7 @@ class DbUtil {
       onCreate: (db, version) {
 
         return db.execute(
-            'CREATE TABLE cars (id TEXT PRIMARY KEY, brand TEXT, model TEXT, image REAL, nick REAL)');
+            'CREATE TABLE cars (id TEXT PRIMARY KEY, brand TEXT, model TEXT, image TEXT, nick TEXT, refuelings TEXT)');
       },
       version: 1,
     );
@@ -23,6 +23,11 @@ class DbUtil {
       data,
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
     );
+  }
+
+  static Future<void> delete(String table, String id) async {
+    final db = await DbUtil.database();
+    await db.delete(table, where: ' id = ?', whereArgs: [id]);
   }
 
   static Future<List<Map<String, dynamic>>> getData(String table) async {

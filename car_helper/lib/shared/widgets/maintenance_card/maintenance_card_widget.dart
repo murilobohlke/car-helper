@@ -1,27 +1,11 @@
 import 'package:car_helper/shared/models/car_model.dart';
-import 'package:car_helper/shared/models/refueling_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RefuelingCardWidget extends StatelessWidget {
+class MaintenanceCardWidget extends StatelessWidget {
   final CarModel data;
-  const RefuelingCardWidget({ Key? key, required this.data }) : super(key: key);
-
-  
-  String media(List<RefuelingModel> data) {
-
-    if(data.length == 1){
-      return '---';
-    }
-    int i = data.length - 1;
-
-    double num = (double.parse(data[i].odometer) - double.parse(data[i-1].odometer));
-    double den = data[i].total / data[i].price;
-
-    return (num/den).toStringAsFixed(2) + ' Km/L';
-  }
-
+  const MaintenanceCardWidget({ Key? key, required this.data }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +19,10 @@ class RefuelingCardWidget extends StatelessWidget {
        ),
        padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Combustível',
+            'Manutenção',
             style: GoogleFonts.lexendDeca(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -46,8 +31,7 @@ class RefuelingCardWidget extends StatelessWidget {
           ),
           Spacer(),
           Text(
-            'Média\n ${data.refuelings == null ? '---' : media(data.refuelings!)}', 
-            textAlign: TextAlign.center,
+            'Não Disponível', 
             style: GoogleFonts.lexendDeca(
               fontSize: 16,
               fontWeight: FontWeight.w500,

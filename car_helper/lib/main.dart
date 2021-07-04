@@ -1,11 +1,14 @@
 import 'package:car_helper/modules/add_car/add_car_page.dart';
 import 'package:car_helper/modules/home/home_page.dart';
+import 'package:car_helper/modules/image/image_screen.dart';
 import 'package:car_helper/modules/info_car/info_car_page.dart';
 import 'package:car_helper/modules/refueling/refueling_page.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'modules/splash/splash_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -29,13 +32,14 @@ class AppWidget extends StatelessWidget {
         ),
       ),
       title: 'Car Helper',
-      initialRoute: "/home",
+      initialRoute: "/splash",
       routes: {
         "/home": (context) => HomePage(),
         "/info_car": (context) => InfoCarPage(),        
         "/refueling": (context) => RefuelingPage(),
         "/add_car": (context) => AddCarPage(),
-                
+        "/image": (context) => ImageScreen(),
+        "/splash": (context) => SplashScreen(),
       },
     );
   }
