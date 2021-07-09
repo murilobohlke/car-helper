@@ -18,6 +18,7 @@ class InfoCarPage extends StatefulWidget {
 
 class _InfoCarPageState extends State<InfoCarPage> {
   int _selectedIndex = 1;
+  CarModel car = CarModel();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,10 +27,17 @@ class _InfoCarPageState extends State<InfoCarPage> {
   }
 
   @override
+  void initState() {
+    Future.delayed(Duration.zero,() {
+      car = ModalRoute.of(context)!.settings.arguments as CarModel;
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
-    CarModel car = ModalRoute.of(context)!.settings.arguments as CarModel;
-
+    
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
     return Scaffold(
@@ -41,8 +49,7 @@ class _InfoCarPageState extends State<InfoCarPage> {
               onPressed: () async {
                 var newCar = await Navigator.of(context).pushNamed('/add_car', arguments: car );
                 car = newCar as CarModel;
-                print(car);
-                _onItemTapped(2);
+                _onItemTapped(1);
               },
               icon: Icon(FontAwesomeIcons.cog))
         ],
