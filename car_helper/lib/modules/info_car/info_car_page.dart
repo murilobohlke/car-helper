@@ -19,6 +19,7 @@ class InfoCarPage extends StatefulWidget {
 class _InfoCarPageState extends State<InfoCarPage> {
   int _selectedIndex = 1;
   CarModel car = CarModel();
+  bool isLoading = true;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,11 +28,12 @@ class _InfoCarPageState extends State<InfoCarPage> {
   }
 
   @override
-  void initState() {
-    Future.delayed(Duration.zero,() {
+  void didChangeDependencies() {
+    if(isLoading){
       car = ModalRoute.of(context)!.settings.arguments as CarModel;
-    });
-    super.initState();
+      isLoading = false;
+    }
+    super.didChangeDependencies();
   }
 
   @override
