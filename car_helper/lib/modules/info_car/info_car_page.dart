@@ -28,7 +28,7 @@ class _InfoCarPageState extends State<InfoCarPage> {
   @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
-    final CarModel car = ModalRoute.of(context)!.settings.arguments as CarModel;
+    CarModel car = ModalRoute.of(context)!.settings.arguments as CarModel;
 
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
@@ -38,8 +38,11 @@ class _InfoCarPageState extends State<InfoCarPage> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/add_car', arguments: car );
+              onPressed: () async {
+                var newCar = await Navigator.of(context).pushNamed('/add_car', arguments: car );
+                car = newCar as CarModel;
+                print(car);
+                _onItemTapped(2);
               },
               icon: Icon(FontAwesomeIcons.cog))
         ],

@@ -30,6 +30,12 @@ class DbUtil {
     await db.delete(table, where: ' id = ?', whereArgs: [id]);
   }
 
+  
+  static Future<void> update(String table, Map<String, Object> data, String id) async {
+    final db = await DbUtil.database();
+    await db.update(table, data, where: ' id = ?', whereArgs: [id]);
+  }
+
   static Future<List<Map<String, dynamic>>> getData(String table) async {
     final db = await DbUtil.database();
     return db.query(table);

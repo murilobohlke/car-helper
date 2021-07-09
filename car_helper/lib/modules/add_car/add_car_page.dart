@@ -134,9 +134,22 @@ class _AddCarPageState extends State<AddCarPage> {
                                             _pickedImage!.path,
                                             nickController!.text);
                                     } else{
-                                      print('editar carro');
+                                      Provider.of<CarsProvider>(context,listen: false)
+                                        .updateCar(
+                                            brandController!.text,
+                                            modelController!.text,
+                                            _pickedImage == null ? car.image! :_pickedImage!.path,
+                                            nickController!.text,
+                                            car.id!);
                                     }
-                                    Navigator.of(context).pop();
+                                    Navigator.pop(context, 
+                                    CarModel(
+                                      brand: brandController!.text,
+                                      model:  modelController!.text,
+                                      nick: nickController!.text,
+                                      id: car?.id!,
+                                      image: _pickedImage == null ? car?.image! :_pickedImage!.path,
+                                    ));
                                   }
                                 })),
                       ],

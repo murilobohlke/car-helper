@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:car_helper/shared/db/db_util.dart';
@@ -11,6 +12,7 @@ class CarsProvider with ChangeNotifier {
 
   Future<void> loadCars() async {
     final dataList = await DbUtil.getData('cars');
+
     cars = dataList
         .map((item) => CarModel(
               id: item['id'],
@@ -44,21 +46,20 @@ class CarsProvider with ChangeNotifier {
     cars.removeAt(index);
     cars.insert(index, car);
 
-    //DbUtil.delete('cars', car.id!);
+    DbUtil.delete('cars', car.id!);
 
-    // DbUtil.insert('cars', {
-    //   'id': car.id!,
-    //   'brand': car.brand!,
-    //   'image': car.image!,
-    //   'model': car.model!,
-    //   'nick': car.nick!,
-    //   'refuelings':jsonEncode(car.refuelings!)
-    // });
+    DbUtil.insert('cars', {
+      'id': car.id!,
+      'brand': car.brand!,
+      'image': car.image!,
+      'model': car.model!,
+      'nick': car.nick!,
+      'refuelings': jsonEncode(car.refuelings!)
+    });
     notifyListeners();
   }
 
   Future<void> addPhoto(String image, CarModel car) async {
-
     if (car.images == null) {
       car.images = [];
     }
@@ -92,6 +93,38 @@ class CarsProvider with ChangeNotifier {
       'model': newCar.model!,
       'nick': newCar.nick!,
     });
+    notifyListeners();
+  }
+
+  Future<void> updateCar(
+      String brand, String model, String image, String nick, String id) async {
+    final newCar = CarModel(
+      id: id,
+      image: image,
+      brand: brand,
+      model: model,
+      nick: nick,
+    );
+
+    CarModel car = cars.firstWhere((car) => car.id == id);
+
+    var index = cars.indexOf(car);
+
+    print(index);
+
+    cars.removeAt(index);
+    cars.insert(index, newCar);
+
+    DbUtil.update(
+        'cars',
+        {
+          'id': newCar.id!,
+          'brand': newCar.brand!,
+          'image': newCar.image!,
+          'model': newCar.model!,
+          'nick': newCar.nick!,
+        },
+        id);
     notifyListeners();
   }
 
