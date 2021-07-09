@@ -15,21 +15,21 @@ class InfoCarHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return AnimatedCard(
       direction: AnimatedCardDirection.bottom,
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal:20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text('Informações sobre ${car.nick =='' ? 'carro' : car.nick}',
-                  style: GoogleFonts.lexendDeca(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[800],
-                  )
-                    ),
+                Text('Informações sobre ${car.nick == '' ? 'carro' : car.nick}',
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    )),
                 Container(
                   width: 60,
                   height: 3,
@@ -38,13 +38,16 @@ class InfoCarHomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 Consumer<CarsProvider>(
-                  builder: (context, value, child) => RefuelingCardWidget(data:value.itemById(car.id!))
-                  
+                    builder: (context, value, child) =>
+                        RefuelingCardWidget(data: value.itemById(car.id!))),
+                SizedBox(
+                  height: 20,
                 ),
-                SizedBox(height: 20,),
-                MaintenanceCardWidget(data:car),
-                SizedBox(height: 40,),
-                GridButtonsWidget(car:car)
+                MaintenanceCardWidget(data: car),
+                SizedBox(
+                  height: 40,
+                ),
+                GridButtonsWidget(car: car)
               ],
             ),
           ),

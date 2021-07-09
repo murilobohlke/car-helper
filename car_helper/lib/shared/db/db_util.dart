@@ -10,7 +10,7 @@ class DbUtil {
       onCreate: (db, version) {
 
         return db.execute(
-            'CREATE TABLE cars (id TEXT PRIMARY KEY, brand TEXT, model TEXT, image TEXT, nick TEXT, refuelings TEXT)');
+            'CREATE TABLE cars (id TEXT PRIMARY KEY, brand TEXT, model TEXT, image TEXT, nick TEXT, refuelings TEXT, images TEXT)');
       },
       version: 1,
     );
@@ -30,7 +30,6 @@ class DbUtil {
     await db.delete(table, where: ' id = ?', whereArgs: [id]);
   }
 
-  
   static Future<void> update(String table, Map<String, Object> data, String id) async {
     final db = await DbUtil.database();
     await db.update(table, data, where: ' id = ?', whereArgs: [id]);

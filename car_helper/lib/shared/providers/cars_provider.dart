@@ -12,16 +12,35 @@ class CarsProvider with ChangeNotifier {
 
   Future<void> loadCars() async {
     final dataList = await DbUtil.getData('cars');
+    List<RefuelingModel>? r;
+    List<String>? imgs;
 
-    cars = dataList
-        .map((item) => CarModel(
-              id: item['id'],
-              image: item['image'],
-              brand: item['brand'],
-              model: item['model'],
-              nick: item['nick'],
-            ))
-        .toList();
+    cars = dataList.map((item) {
+      r = null;
+      imgs = null;
+
+      if (item['images'] != null) {
+        imgs = (jsonDecode(item['images']) as List<dynamic>).cast<String>();
+
+        print(imgs);
+      }
+
+      if (item['refuelings'] != null) {
+        Iterable l = json.decode(item['refuelings']);
+        r = List<RefuelingModel>.from(
+            l.map((model) => RefuelingModel.fromJson(model)));
+      }
+
+      return CarModel(
+          id: item['id'],
+          image: item['image'],
+          brand: item['brand'],
+          model: item['model'],
+          nick: item['nick'],
+          refuelings: r,
+          images: imgs);
+    }).toList();
+
     notifyListeners();
   }
 
@@ -41,21 +60,34 @@ class CarsProvider with ChangeNotifier {
 
     car.refuelings!.add(newRefueling);
 
-    var index = cars.indexOf(car);
+    if (car.images == null) {
+      DbUtil.update(
+      'cars',
+      {
+        'id': car.id!,
+        'brand': car.brand!,
+        'image': car.image!,
+        'model': car.model!,
+        'nick': car.nick!,
+        'refuelings': jsonEncode(car.refuelings!),
+      },
+      car.id!);
 
-    cars.removeAt(index);
-    cars.insert(index, car);
+    } else {
+      DbUtil.update(
+          'cars',
+          {
+            'id': car.id!,
+            'brand': car.brand!,
+            'image': car.image!,
+            'model': car.model!,
+            'nick': car.nick!,
+            'refuelings': jsonEncode(car.refuelings!),
+            'images': jsonEncode(car.images!)
+          },
+          car.id!);
+    }
 
-    DbUtil.delete('cars', car.id!);
-
-    DbUtil.insert('cars', {
-      'id': car.id!,
-      'brand': car.brand!,
-      'image': car.image!,
-      'model': car.model!,
-      'nick': car.nick!,
-      'refuelings': jsonEncode(car.refuelings!)
-    });
     notifyListeners();
   }
 
@@ -66,10 +98,32 @@ class CarsProvider with ChangeNotifier {
 
     car.images!.add(image);
 
-    var index = cars.indexOf(car);
-
-    cars.removeAt(index);
-    cars.insert(index, car);
+    if (car.refuelings == null) {
+      DbUtil.update(
+          'cars',
+          {
+            'id': car.id!,
+            'brand': car.brand!,
+            'image': car.image!,
+            'model': car.model!,
+            'nick': car.nick!,
+            'images': jsonEncode(car.images!)
+          },
+          car.id!);
+    } else {
+      DbUtil.update(
+          'cars',
+          {
+            'id': car.id!,
+            'brand': car.brand!,
+            'image': car.image!,
+            'model': car.model!,
+            'nick': car.nick!,
+            'refuelings': jsonEncode(car.refuelings!),
+            'images': jsonEncode(car.images!)
+          },
+          car.id!);
+    }
 
     notifyListeners();
   }
@@ -123,6 +177,8 @@ class CarsProvider with ChangeNotifier {
           'image': newCar.image!,
           'model': newCar.model!,
           'nick': newCar.nick!,
+          'refuelings': jsonEncode(car.refuelings!),
+          'images': jsonEncode(car.images!)
         },
         id);
     notifyListeners();
