@@ -178,7 +178,7 @@ class CarsProvider with ChangeNotifier {
           'model': newCar.model!,
           'nick': newCar.nick!,
           'refuelings': jsonEncode(car.refuelings!),
-          'images': jsonEncode(car.images!)
+          'images': jsonEncode(car.images!),
         },
         id);
     notifyListeners();
@@ -207,4 +207,5 @@ class CarsProvider with ChangeNotifier {
   CarModel itemById(String id) {
     return cars.firstWhere((car) => car.id == id);
   }
+
 }

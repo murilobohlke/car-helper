@@ -1,4 +1,5 @@
 
+import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/app_bar_home/app_bar_home_widget.dart';
@@ -55,7 +56,10 @@ class HomePage extends StatelessWidget {
                       ) : ListView.builder(
                         itemCount: cars.itemsCount,
                         itemBuilder: (context, i) {
-                          return  CarTileWidget(cars.itemByIndex(i));
+                          return  AnimatedCard(
+                            direction: AnimatedCardDirection.right,
+                            child: CarTileWidget(cars.itemByIndex(i))
+                          );
                         }
                       )
                     ),

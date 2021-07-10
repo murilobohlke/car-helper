@@ -123,7 +123,7 @@ class _AddCarPageState extends State<AddCarPage> {
                         Expanded(
                             child: PrimaryButtonWidget(
                                 label: 'Salvar',
-                                onPressed: () async {
+                                onPressed: _pickedImage == null && car == null ? null : () async {
                                   var resp = await controller.formValid();
                                   if (resp) {
                                     if(car == null){

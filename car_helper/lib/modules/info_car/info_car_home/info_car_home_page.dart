@@ -36,7 +36,7 @@ class InfoCarHomePage extends StatelessWidget {
                   color: AppColors.tertiary.withOpacity(0.8),
                   margin: EdgeInsets.symmetric(vertical: 5),
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: 20),
                 Consumer<CarsProvider>(
                     builder: (context, value, child) =>
                         RefuelingCardWidget(data: value.itemById(car.id!))),
