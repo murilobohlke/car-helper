@@ -15,7 +15,7 @@ class InfoCarRefuelingPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(20),
         child: Center(
-          child: car.refuelings == null 
+          child: car.refuelings!.length == 0 
           ? Text(
             'Sem Reabastecimentos',
             style: GoogleFonts.lexendDeca(
@@ -27,7 +27,9 @@ class InfoCarRefuelingPage extends StatelessWidget {
           : ListView.builder(
             itemCount: car.refuelings!.length,
             itemBuilder: (context, index) {
-              return RefuelingTileWidget(id: car.id!, ref: car.refuelings![index]);
+              return Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: RefuelingTileWidget(id: car.id!, ref: car.refuelings![index]));
             },
           ),
         ),

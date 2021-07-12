@@ -17,7 +17,7 @@ class RefuelingTileWidget extends StatelessWidget {
         text: 'A informação será excluída, você confirma?',
         id: id,
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          //margin: EdgeInsets.symmetric(vertical: 10),
           padding: EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(

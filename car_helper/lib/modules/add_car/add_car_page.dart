@@ -148,6 +148,8 @@ class _AddCarPageState extends State<AddCarPage> {
                                       model:  modelController!.text,
                                       nick: nickController!.text,
                                       id: car?.id!,
+                                      refuelings: car?.refuelings!,
+                                      images: car?.images!,
                                       image: _pickedImage == null ? car?.image! :_pickedImage!.path,
                                     ));
                                   }

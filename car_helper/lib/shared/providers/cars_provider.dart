@@ -16,8 +16,8 @@ class CarsProvider with ChangeNotifier {
     List<String>? imgs;
 
     cars = dataList.map((item) {
-      r = null;
-      imgs = null;
+      r = [];
+      imgs = [];
 
       if (item['images'] != '') {
         imgs = (jsonDecode(item['images']) as List<dynamic>).cast<String>();
@@ -91,10 +91,6 @@ class CarsProvider with ChangeNotifier {
   }
 
   Future<void> addPhoto(String image, CarModel car) async {
-    if (car.images == null) {
-      car.images = [];
-    }
-
     car.images!.add(image);
 
     if (car.refuelings == null) {
@@ -130,12 +126,13 @@ class CarsProvider with ChangeNotifier {
   Future<void> addCar(
       String brand, String model, String image, String nick) async {
     final newCar = CarModel(
-      id: Random().nextDouble().toString(),
-      image: image,
-      brand: brand,
-      model: model,
-      nick: nick,
-    );
+        id: Random().nextDouble().toString(),
+        image: image,
+        brand: brand,
+        model: model,
+        nick: nick,
+        refuelings: [],
+        images: []);
 
     cars.add(newCar);
 
@@ -146,22 +143,23 @@ class CarsProvider with ChangeNotifier {
       'model': newCar.model!,
       'nick': newCar.nick!,
       'refuelings': '',
-      'images':''
+      'images': ''
     });
     notifyListeners();
   }
 
   Future<void> updateCar(
       String brand, String model, String image, String nick, String id) async {
-    final newCar = CarModel(
-      id: id,
-      image: image,
-      brand: brand,
-      model: model,
-      nick: nick,
-    );
-
     CarModel car = cars.firstWhere((car) => car.id == id);
+
+    final newCar = CarModel(
+        id: id,
+        image: image,
+        brand: brand,
+        model: model,
+        nick: nick,
+        refuelings: car.refuelings,
+        images: car.images);
 
     var index = cars.indexOf(car);
 
@@ -196,25 +194,44 @@ class CarsProvider with ChangeNotifier {
 
     var index = cars.indexOf(car);
 
-    if( cars[index].refuelings!.length == 1){
-      cars[index].refuelings = null;
-    } else{
-      cars[index].refuelings!.remove(r);
-    }
+    cars[index].refuelings!.remove(r);
 
     DbUtil.update(
-          'cars',
-          {
-            'id': car.id!,
-            'brand': car.brand!,
-            'image': car.image!,
-            'model': car.model!,
-            'nick': car.nick!,
-            'refuelings': jsonEncode(car.refuelings!),
-            'images': jsonEncode(car.images!)
-          },
-          car.id!);
-    
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings!),
+          'images': jsonEncode(car.images!)
+        },
+        car.id!);
+
+    notifyListeners();
+  }
+
+  Future<void> deleteImage(String s, String id) async {
+    CarModel car = cars.firstWhere((car) => car.id == id);
+
+    var index = cars.indexOf(car);
+
+    cars[index].images!.remove(s);
+
+    DbUtil.update(
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings!),
+          'images': jsonEncode(car.images!)
+        },
+        car.id!);
+
     notifyListeners();
   }
 

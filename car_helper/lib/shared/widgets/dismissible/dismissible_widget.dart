@@ -10,22 +10,28 @@ import 'package:provider/provider.dart';
 class DismissibleWidget extends StatelessWidget {
   final String id;
   final RefuelingModel? ref;
+  final String? idImg;
   final Widget child;
   final String text;
 
-  const DismissibleWidget(
-      {required this.id,
-      this.ref,
-      required this.child,
-      required this.text,});
+  const DismissibleWidget({
+    required this.id,
+    this.ref,
+    this.idImg,
+    required this.child,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
         key: ValueKey(id),
         background: Container(
-          color: Colors.red[700],
-          margin: EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.red[700],
+          ),
+          //margin: EdgeInsets.symmetric(vertical: 10),
           child: Icon(
             FontAwesomeIcons.trash,
             color: Colors.white,
@@ -85,13 +91,15 @@ class DismissibleWidget extends StatelessWidget {
                   ));
         },
         onDismissed: (_) {
-          if(ref!= null){
-            Provider.of<CarsProvider>(context, listen: false).deleteRefueling(ref!, id);
-          } 
-          else{
-            print('delete car');
+          if (ref != null) {
+            Provider.of<CarsProvider>(context, listen: false)
+                .deleteRefueling(ref!, id);
           }
-          
+          if (idImg != null) {
+            Provider.of<CarsProvider>(context, listen: false).deleteImage(idImg!, id);
+          } else {
+            Provider.of<CarsProvider>(context, listen: false).deleteCar(id);
+          }
         },
         child: child);
   }

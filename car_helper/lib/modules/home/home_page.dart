@@ -38,6 +38,7 @@ class HomePage extends StatelessWidget {
                 color: AppColors.tertiary.withOpacity(0.8),
                 margin: EdgeInsets.symmetric(vertical: 5),
               ),
+              SizedBox(height: 15,),
               Expanded(
                 child: FutureBuilder(
                   future: Provider.of<CarsProvider>(context, listen: false).loadCars(),

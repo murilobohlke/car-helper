@@ -1,4 +1,3 @@
-
 import 'package:car_helper/modules/info_car/info_car_gallery/info_car_gallery_page.dart';
 import 'package:car_helper/modules/info_car/info_car_home/info_car_home_page.dart';
 import 'package:car_helper/modules/info_car/info_car_refueling/info_car_refueling_page.dart';
@@ -7,7 +6,6 @@ import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 
 class InfoCarPage extends StatefulWidget {
   const InfoCarPage({Key? key}) : super(key: key);
@@ -29,7 +27,7 @@ class _InfoCarPageState extends State<InfoCarPage> {
 
   @override
   void didChangeDependencies() {
-    if(isLoading){
+    if (isLoading) {
       car = ModalRoute.of(context)!.settings.arguments as CarModel;
       isLoading = false;
     }
@@ -39,7 +37,7 @@ class _InfoCarPageState extends State<InfoCarPage> {
   @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
-    
+
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
     return Scaffold(
@@ -49,17 +47,23 @@ class _InfoCarPageState extends State<InfoCarPage> {
         actions: [
           IconButton(
               onPressed: () async {
-                var newCar = await Navigator.of(context).pushNamed('/add_car', arguments: car );
+                var newCar = await Navigator.of(context)
+                    .pushNamed('/add_car', arguments: car);
                 car = newCar as CarModel;
+                print(newCar);
                 _onItemTapped(1);
               },
               icon: Icon(FontAwesomeIcons.cog))
         ],
       ),
       body: [
-        InfoCarRefuelingPage(car:car),
-        InfoCarHomePage(car: car,),
-        InfoCarGalleryPage(car: car,)
+        InfoCarRefuelingPage(car: car),
+        InfoCarHomePage(
+          car: car,
+        ),
+        InfoCarGalleryPage(
+          car: car,
+        )
       ][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppColors.contrastBackground,
