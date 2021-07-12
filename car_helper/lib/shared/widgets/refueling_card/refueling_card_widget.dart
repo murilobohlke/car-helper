@@ -43,7 +43,8 @@ class RefuelingCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                'Média\n ${data.refuelings == null ? '---' : controller.media(data.refuelings!)}', 
+                // 'Média\n ${data.refuelings == null ? '---' : controller.media(data.refuelings!)}', 
+                'Média\n 11',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lexendDeca(
                   fontSize: 15,

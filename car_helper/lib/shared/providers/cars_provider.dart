@@ -19,13 +19,13 @@ class CarsProvider with ChangeNotifier {
       r = null;
       imgs = null;
 
-      if (item['images'] != null) {
+      if (item['images'] != '') {
         imgs = (jsonDecode(item['images']) as List<dynamic>).cast<String>();
 
         print(imgs);
       }
 
-      if (item['refuelings'] != null) {
+      if (item['refuelings'] != '') {
         Iterable l = json.decode(item['refuelings']);
         r = List<RefuelingModel>.from(
             l.map((model) => RefuelingModel.fromJson(model)));
@@ -62,17 +62,16 @@ class CarsProvider with ChangeNotifier {
 
     if (car.images == null) {
       DbUtil.update(
-      'cars',
-      {
-        'id': car.id!,
-        'brand': car.brand!,
-        'image': car.image!,
-        'model': car.model!,
-        'nick': car.nick!,
-        'refuelings': jsonEncode(car.refuelings!),
-      },
-      car.id!);
-
+          'cars',
+          {
+            'id': car.id!,
+            'brand': car.brand!,
+            'image': car.image!,
+            'model': car.model!,
+            'nick': car.nick!,
+            'refuelings': jsonEncode(car.refuelings!),
+          },
+          car.id!);
     } else {
       DbUtil.update(
           'cars',
@@ -146,6 +145,8 @@ class CarsProvider with ChangeNotifier {
       'image': newCar.image!,
       'model': newCar.model!,
       'nick': newCar.nick!,
+      'refuelings': '',
+      'images':''
     });
     notifyListeners();
   }
@@ -163,8 +164,6 @@ class CarsProvider with ChangeNotifier {
     CarModel car = cars.firstWhere((car) => car.id == id);
 
     var index = cars.indexOf(car);
-
-    print(index);
 
     cars.removeAt(index);
     cars.insert(index, newCar);
@@ -192,6 +191,33 @@ class CarsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteRefueling(RefuelingModel r, String id) async {
+    CarModel car = cars.firstWhere((car) => car.id == id);
+
+    var index = cars.indexOf(car);
+
+    if( cars[index].refuelings!.length == 1){
+      cars[index].refuelings = null;
+    } else{
+      cars[index].refuelings!.remove(r);
+    }
+
+    DbUtil.update(
+          'cars',
+          {
+            'id': car.id!,
+            'brand': car.brand!,
+            'image': car.image!,
+            'model': car.model!,
+            'nick': car.nick!,
+            'refuelings': jsonEncode(car.refuelings!),
+            'images': jsonEncode(car.images!)
+          },
+          car.id!);
+    
+    notifyListeners();
+  }
+
   List<CarModel> get items {
     return [...cars];
   }
@@ -207,5 +233,4 @@ class CarsProvider with ChangeNotifier {
   CarModel itemById(String id) {
     return cars.firstWhere((car) => car.id == id);
   }
-
 }

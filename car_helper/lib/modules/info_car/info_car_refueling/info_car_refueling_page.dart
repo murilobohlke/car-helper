@@ -27,7 +27,7 @@ class InfoCarRefuelingPage extends StatelessWidget {
           : ListView.builder(
             itemCount: car.refuelings!.length,
             itemBuilder: (context, index) {
-              return RefuelingTileWidget(ref: car.refuelings![index]);
+              return RefuelingTileWidget(id: car.id!, ref: car.refuelings![index]);
             },
           ),
         ),
