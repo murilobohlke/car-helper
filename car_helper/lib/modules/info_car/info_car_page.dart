@@ -1,5 +1,7 @@
 import 'package:car_helper/modules/info_car/info_car_gallery/info_car_gallery_page.dart';
 import 'package:car_helper/modules/info_car/info_car_home/info_car_home_page.dart';
+import 'package:car_helper/modules/info_car/info_car_info/info_car_info_page.dart';
+import 'package:car_helper/modules/info_car/info_car_maintenance/info_car_maintenance_page.dart';
 import 'package:car_helper/modules/info_car/info_car_refueling/info_car_refueling_page.dart';
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
@@ -15,7 +17,7 @@ class InfoCarPage extends StatefulWidget {
 }
 
 class _InfoCarPageState extends State<InfoCarPage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 2;
   CarModel car = CarModel();
   bool isLoading = true;
 
@@ -51,19 +53,21 @@ class _InfoCarPageState extends State<InfoCarPage> {
                     .pushNamed('/add_car', arguments: car);
                 car = newCar as CarModel;
                 print(newCar);
-                _onItemTapped(1);
+                _onItemTapped(2);
               },
               icon: Icon(FontAwesomeIcons.cog))
         ],
       ),
       body: [
         InfoCarRefuelingPage(car: car),
-        InfoCarGalleryPage(car: car,),
+        InfoCarMaintencePage(car),
         InfoCarHomePage(car: car,),
         InfoCarGalleryPage(car: car,),
-        InfoCarRefuelingPage(car: car),
+        InfoCarInfoPage(car),
       ][_selectedIndex],
       bottomNavigationBar:  BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         backgroundColor: AppColors.contrastBackground,
         items: <BottomNavigationBarItem>[

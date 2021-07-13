@@ -88,7 +88,7 @@ class _AddCarPageState extends State<AddCarPage> {
                         validator: controller.validateModel,
                         label: 'Modelo',
                         controller: modelController,
-                        icon: FontAwesomeIcons.info,
+                        icon: FontAwesomeIcons.solidStar,
                         onChanged: (value) {
                           controller.onChange(model: value);
                         },

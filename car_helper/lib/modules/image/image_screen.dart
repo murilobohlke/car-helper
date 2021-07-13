@@ -12,8 +12,8 @@ class ImageScreen extends StatelessWidget {
     final String image = ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
-      backgroundColor: Colors.black,
-          body: Column(
+      appBar: AppBar(),
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClipRRect(
