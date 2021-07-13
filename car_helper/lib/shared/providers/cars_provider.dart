@@ -54,25 +54,8 @@ class CarsProvider with ChangeNotifier {
         price: price,
         total: total);
 
-    if (car.refuelings == null) {
-      car.refuelings = [];
-    }
-
     car.refuelings!.add(newRefueling);
 
-    if (car.images == null) {
-      DbUtil.update(
-          'cars',
-          {
-            'id': car.id!,
-            'brand': car.brand!,
-            'image': car.image!,
-            'model': car.model!,
-            'nick': car.nick!,
-            'refuelings': jsonEncode(car.refuelings!),
-          },
-          car.id!);
-    } else {
       DbUtil.update(
           'cars',
           {
@@ -85,7 +68,7 @@ class CarsProvider with ChangeNotifier {
             'images': jsonEncode(car.images!)
           },
           car.id!);
-    }
+   
 
     notifyListeners();
   }

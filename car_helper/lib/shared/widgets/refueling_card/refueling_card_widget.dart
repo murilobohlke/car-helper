@@ -42,78 +42,105 @@ class RefuelingCardWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                // 'Média\n ${data.refuelings == null ? '---' : controller.media(data.refuelings!)}', 
-                'Média\n 11',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800],
-                )
+              Column(
+                children: [
+                  Text(
+                    'Média\n ${controller.mediaKmL(data.refuelings!)}',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    )
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    ' ',
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.secondary,
+                    )
+                  ),
+                  SizedBox(height: 5,),
+                   Text(
+                    'Total\n ${controller.total1(data.refuelings!)}', 
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    )
+                  ),
+                ],
               ),
-               Text(
-                'Distância\n 526.78 Km', 
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800],
-                )
+              Column(
+                children: [
+                  Text(
+                    'Distância\n ${controller.distance(data.refuelings!)}',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    )
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    'Geral',
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.secondary,
+                    )
+                  ),
+                  SizedBox(height: 5,),
+                  Text(
+                    'Total\n ${controller.total2(data.refuelings!)}', 
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    )
+                  ),
+                ],
               ),
-               Text(
-                'Média\n 0.50 R\$/Km', 
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800],
-                )
+              Column(
+                children: [
+                  Text(
+                    'Média\n ${controller.mediaRsKm(data.refuelings!)}',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    )
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    ' ',
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.secondary,
+                    )
+                  ),
+                  SizedBox(height: 5,),
+                   Text(
+                    'Total\n ${controller.total3(data.refuelings!)}', 
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.lexendDeca(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    )
+                  ),
+                ],
               ),
             ],
           ),
-          SizedBox(height: 15,),
-          Text(
-            'Geral',
-            style: GoogleFonts.lexendDeca(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.secondary,
-                )
-          ),
-          SizedBox(height: 5,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                'Total\n 890.67 R\$', 
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800],
-                )
-              ),
-               Text(
-                'Total\n 255.98 L', 
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800],
-                )
-              ),
-               Text(
-                'Total\n 2158 Km',  
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800],
-                )
-              ),
-            ],
-          ),
+          
         ],
       ),
     );

@@ -95,8 +95,9 @@ class DismissibleWidget extends StatelessWidget {
             Provider.of<CarsProvider>(context, listen: false)
                 .deleteRefueling(ref!, id);
           }
-          if (idImg != null) {
-            Provider.of<CarsProvider>(context, listen: false).deleteImage(idImg!, id);
+          else if (idImg != null) {
+            Provider.of<CarsProvider>(context, listen: false)
+                .deleteImage(idImg!, id);
           } else {
             Provider.of<CarsProvider>(context, listen: false).deleteCar(id);
           }

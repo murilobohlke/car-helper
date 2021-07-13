@@ -57,9 +57,12 @@ class HomePage extends StatelessWidget {
                       ) : ListView.builder(
                         itemCount: cars.itemsCount,
                         itemBuilder: (context, i) {
-                          return  AnimatedCard(
-                            direction: AnimatedCardDirection.right,
-                            child: CarTileWidget(cars.itemByIndex(i))
+                          return  Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: AnimatedCard(
+                              direction: AnimatedCardDirection.right,
+                              child: CarTileWidget(cars.itemByIndex(i))
+                            ),
                           );
                         }
                       )

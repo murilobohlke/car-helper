@@ -58,19 +58,22 @@ class _InfoCarPageState extends State<InfoCarPage> {
       ),
       body: [
         InfoCarRefuelingPage(car: car),
-        InfoCarHomePage(
-          car: car,
-        ),
-        InfoCarGalleryPage(
-          car: car,
-        )
+        InfoCarGalleryPage(car: car,),
+        InfoCarHomePage(car: car,),
+        InfoCarGalleryPage(car: car,),
+        InfoCarRefuelingPage(car: car),
       ][_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:  BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: AppColors.contrastBackground,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.gasPump),
             label: 'Histórico',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.tools),
+            label: 'Manutenção',
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(
@@ -84,11 +87,14 @@ class _InfoCarPageState extends State<InfoCarPage> {
             icon: Icon(FontAwesomeIcons.image),
             label: 'Galeria',
           ),
+            BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.info),
+            label: 'Informações',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: AppColors.secondary,
         onTap: _onItemTapped,
-      ),
-    );
+      ));
   }
 }
