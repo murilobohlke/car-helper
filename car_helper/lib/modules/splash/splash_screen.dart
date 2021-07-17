@@ -7,7 +7,8 @@ class SplashScreen extends StatelessWidget {
 
   void delay(BuildContext context) async {
     await Future.delayed(Duration(seconds: 3));
-    Navigator.of(context).pushReplacementNamed('/home');
+    //Navigator.of(context).pushReplacementNamed('/home');
+    Navigator.of(context).pushReplacementNamed('/auth');
   }
 
   @override

@@ -1,0 +1,89 @@
+import 'package:car_helper/shared/models/auth_model.dart';
+import 'package:car_helper/shared/themes/app_colors.dart';
+import 'package:car_helper/shared/widgets/auth_form/auth_form_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class AuthScreen extends StatefulWidget {
+  const AuthScreen({ Key? key }) : super(key: key);
+
+  @override
+  _AuthScreenState createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  final _auth = FirebaseAuth.instance;
+
+  bool isLoading = false;
+
+  Future<void> _handleSubmit (AuthModel authModel) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      if(authModel.isLogin) {
+       UserCredential result = await _auth.signInWithEmailAndPassword(
+         email: authModel.email!, 
+         password: authModel.password!
+        );
+
+        if(result.user!=null){
+          Navigator.of(context).pushReplacementNamed('/home');
+        }
+    } else{
+       await _auth.createUserWithEmailAndPassword(
+         email: authModel.email!, 
+         password: authModel.password!
+        );
+    }
+    } on PlatformException catch (err) {
+      final msg = err.message ?? 'Ocorreu um erro';
+      print(msg);
+    } catch (err){
+      print(err);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: <Color>[AppColors.primary, AppColors.tertiary],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                children: [
+                  AuthFormWidget(_handleSubmit),
+                  if(isLoading)
+                  Positioned.fill(
+                    child: Container(
+                      margin: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(child: CircularProgressIndicator(color: AppColors.secondary,)),
+                    )
+                  )
+                ], 
+              ),
+            ],
+          ),
+        ),
+      ));
+  }
+}
