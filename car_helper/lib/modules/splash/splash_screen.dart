@@ -1,20 +1,39 @@
 import 'package:car_helper/shared/themes/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
   void delay(BuildContext context) async {
     await Future.delayed(Duration(seconds: 3));
     //Navigator.of(context).pushReplacementNamed('/home');
-    Navigator.of(context).pushReplacementNamed('/auth');
+    FirebaseAuth.instance
+      .authStateChanges()
+      .listen((User? user) {
+        if (user == null) {
+          Navigator.of(context).pushReplacementNamed('/auth');
+        } else {
+          Navigator.of(context).pushReplacementNamed('/home');
+        }
+      });
+  }
+
+  @override
+  void initState() {
+    delay(context);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     
-    delay(context);
 
     return Scaffold(
       body: Container(

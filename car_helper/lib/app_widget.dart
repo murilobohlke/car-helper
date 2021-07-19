@@ -1,7 +1,5 @@
 import 'package:car_helper/shared/themes/app_colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'modules/add_car/add_car_page.dart';
 import 'modules/auth/auth_screen.dart';
 import 'modules/home/home_page.dart';

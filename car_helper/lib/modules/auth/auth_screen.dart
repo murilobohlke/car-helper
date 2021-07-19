@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/shared/models/auth_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/auth_form/auth_form_widget.dart';
@@ -65,21 +66,24 @@ class _AuthScreenState extends State<AuthScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Stack(
-                children: [
-                  AuthFormWidget(_handleSubmit),
-                  if(isLoading)
-                  Positioned.fill(
-                    child: Container(
-                      margin: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(0, 0, 0, 0.5),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(child: CircularProgressIndicator(color: AppColors.secondary,)),
+              AnimatedCard(
+                direction: AnimatedCardDirection.right,
+                child: Stack(
+                  children: [
+                    AuthFormWidget(_handleSubmit),
+                    if(isLoading)
+                    Positioned.fill(
+                      child: Container(
+                        margin: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(child: CircularProgressIndicator(color: AppColors.secondary,)),
+                      )
                     )
-                  )
-                ], 
+                  ], 
+                ),
               ),
             ],
           ),

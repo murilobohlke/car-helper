@@ -22,7 +22,6 @@ class CarsProvider with ChangeNotifier {
       if (item['images'] != '') {
         imgs = (jsonDecode(item['images']) as List<dynamic>).cast<String>();
 
-        print(imgs);
       }
 
       if (item['refuelings'] != '') {

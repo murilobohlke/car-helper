@@ -52,7 +52,6 @@ class _InfoCarPageState extends State<InfoCarPage> {
                 var newCar = await Navigator.of(context)
                     .pushNamed('/add_car', arguments: car);
                 car = newCar as CarModel;
-                print(newCar);
                 _onItemTapped(2);
               },
               icon: Icon(FontAwesomeIcons.cog))
