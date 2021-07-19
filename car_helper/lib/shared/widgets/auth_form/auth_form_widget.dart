@@ -42,10 +42,11 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
               padding: EdgeInsets.all(16),
               child: Column(
                 children: [
+                  Image.asset('assets/images/car.png', width: 120, height: 60,),
                   Text(
                     'Car Helper',
                     style: GoogleFonts.lexendDeca(
-                      fontSize: 40,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: AppColors.tertiary,
                   )

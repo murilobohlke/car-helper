@@ -4,7 +4,7 @@ import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/auth_form/auth_form_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({ Key? key }) : super(key: key);
@@ -15,6 +15,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isLoading = false;
 
@@ -39,11 +40,19 @@ class _AuthScreenState extends State<AuthScreen> {
          password: authModel.password!
         );
     }
-    } on PlatformException catch (err) {
-      final msg = err.message ?? 'Ocorreu um erro';
-      print(msg);
-    } catch (err){
-      print(err);
+    } catch (_){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          'Ocorreu um erro! Revise as informações.',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.lexendDeca(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          )
+        ),
+        backgroundColor: Colors.red[700],
+      ));
     } finally {
       setState(() {
         isLoading = false;
@@ -54,7 +63,9 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
+        padding: EdgeInsets.only(top:50, bottom: 0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -63,29 +74,31 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AnimatedCard(
-                direction: AnimatedCardDirection.right,
-                child: Stack(
-                  children: [
-                    AuthFormWidget(_handleSubmit),
-                    if(isLoading)
-                    Positioned.fill(
-                      child: Container(
-                        margin: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(0, 0, 0, 0.5),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Center(child: CircularProgressIndicator(color: AppColors.secondary,)),
+          child: SingleChildScrollView(
+                      child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedCard(
+                  direction: AnimatedCardDirection.right,
+                  child: Stack(
+                    children: [
+                      AuthFormWidget(_handleSubmit),
+                      if(isLoading)
+                      Positioned.fill(
+                        child: Container(
+                          margin: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(0, 0, 0, 0.5),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(child: CircularProgressIndicator(color: AppColors.secondary,)),
+                        )
                       )
-                    )
-                  ], 
+                    ], 
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ));

@@ -8,6 +8,7 @@ import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.d
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -23,15 +24,20 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBarHomeWidget(height),
         body: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 10),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
           child: Column(
             children: [
-              IconButton(
-                onPressed: () { 
-                  FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushReplacementNamed('/auth');
-                  }, 
-                icon: Icon(Icons.logout)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () { 
+                      FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacementNamed('/auth');
+                      }, 
+                    icon: Icon(FontAwesomeIcons.timesCircle, color: AppColors.tertiary,)
+                  ),
+                ],
               ),
               Text('Meus Carros',
                 style: GoogleFonts.lexendDeca(
