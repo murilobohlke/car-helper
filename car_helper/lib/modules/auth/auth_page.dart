@@ -2,6 +2,7 @@ import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/shared/models/auth_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/auth_form/auth_form_widget.dart';
+import 'package:car_helper/shared/widgets/others_login/others_login_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,26 +76,31 @@ class _AuthPageState extends State<AuthPage> {
         ),
         child: Center(
           child: SingleChildScrollView(
-                      child: Column(
+              child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 AnimatedCard(
                   direction: AnimatedCardDirection.right,
-                  child: Stack(
+                  child: Column(
                     children: [
-                      AuthFormWidget(_handleSubmit),
-                      if(isLoading)
-                      Positioned.fill(
-                        child: Container(
-                          margin: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(0, 0, 0, 0.5),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(child: CircularProgressIndicator(color: AppColors.secondary,)),
-                        )
-                      )
-                    ], 
+                      Stack(
+                        children: [
+                          AuthFormWidget(_handleSubmit),
+                          if(isLoading)
+                          Positioned.fill(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(0, 0, 0, 0.5),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Center(child: CircularProgressIndicator(color: AppColors.secondary,)),
+                            )
+                          )
+                        ], 
+                      ),
+                      OthersLoginWidget(),
+                    ],
                   ),
                 ),
               ],

@@ -1,12 +1,10 @@
 import 'package:car_helper/shared/models/auth_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
-import 'package:car_helper/shared/widgets/social_login/social_login_button.dart';
 import 'package:car_helper/shared/widgets/text_input/text_input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFormWidget extends StatefulWidget {
   final void Function(AuthModel authModel) onSubmit;
@@ -20,20 +18,6 @@ class AuthFormWidget extends StatefulWidget {
 class _AuthFormWidgetState extends State<AuthFormWidget> {
   final AuthModel _authModel = AuthModel();
   final GlobalKey<FormState> _formKey = GlobalKey();
-
-  Future<void> googleSingIn(BuildContext context) async {
-    GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: [
-        'email',
-      ],
-    );
-    try {
-      final response = await _googleSignIn.signIn();
-      print(response);
-    } catch (error) {
-      print(error);
-    }
-  }
 
   _submit() {
     bool isValid = _formKey.currentState!.validate();
@@ -52,81 +36,76 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         elevation: 10,
-          margin: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Image.asset('assets/images/car.png', width: 120, height: 60,),
-                  Text(
-                    'Car Helper',
-                    style: GoogleFonts.lexendDeca(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.tertiary,
-                  )
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        SizedBox(height: 30,),
-                        if (_authModel.isSignup)
-                        TextInputWidget(
-                          key: ValueKey('name'),
-                          label: 'Nome', 
-                          icon: FontAwesomeIcons.user,
-                          onChanged: (value) => _authModel.name = value
-                        ),
-                        TextInputWidget(
-                          textCapt: TextCapitalization.none,
-                          key: ValueKey('email'),
-                          label: 'Email', 
-                          icon: FontAwesomeIcons.envelope,
-                          onChanged: (value) => _authModel.email = value
-                        ),
-                        TextInputWidget(
-                          textCapt: TextCapitalization.none,
-                          key: ValueKey('password'),
-                          label: 'Senha',
-                          obscure: true,
-                          icon: FontAwesomeIcons.key,
-                          onChanged: (value) => _authModel.password = value
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        PrimaryButtonWidget(
-                            label: _authModel.isLogin ? 'Entrar' : 'Cadastrar',
-                            onPressed: _submit),
-                        SizedBox(height: 20,),
-                        SocialLoginButton(onTap: (){
-                          googleSingIn(context);
-                        }),
-                        TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _authModel.toggleMode();
-                              });
-                            },
-                            child: Text(_authModel.isLogin
-                                ? 'Criar nova conta?'
-                                : 'Já possui conta?',
-                                style: GoogleFonts.lexendDeca(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.secondary,
-                              )
-                            )
-                        )
-                      ],
-                    ),
-                  ),
-                ],
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Image.asset('assets/images/car.png', width: 120, height: 60,),
+              Text(
+                'Car Helper',
+                style: GoogleFonts.lexendDeca(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.tertiary,
+              )
               ),
-            ),
-          )),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 30,),
+                    if (_authModel.isSignup)
+                    TextInputWidget(
+                      key: ValueKey('name'),
+                      label: 'Nome', 
+                      icon: FontAwesomeIcons.user,
+                      onChanged: (value) => _authModel.name = value
+                    ),
+                    TextInputWidget(
+                      textCapt: TextCapitalization.none,
+                      key: ValueKey('email'),
+                      label: 'Email', 
+                      icon: FontAwesomeIcons.envelope,
+                      onChanged: (value) => _authModel.email = value
+                    ),
+                    TextInputWidget(
+                      textCapt: TextCapitalization.none,
+                      key: ValueKey('password'),
+                      label: 'Senha',
+                      obscure: true,
+                      icon: FontAwesomeIcons.key,
+                      onChanged: (value) => _authModel.password = value
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    PrimaryButtonWidget(
+                        label: _authModel.isLogin ? 'Entrar' : 'Cadastrar',
+                        onPressed: _submit),
+                    SizedBox(height: 20,),
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _authModel.toggleMode();
+                          });
+                        },
+                        child: Text(_authModel.isLogin
+                            ? 'Criar nova conta?'
+                            : 'Já possui conta?',
+                            style: GoogleFonts.lexendDeca(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.secondary,
+                          )
+                        )
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )),
     );
   }
 }

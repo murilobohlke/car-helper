@@ -2,10 +2,12 @@ import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class SocialLoginButton extends StatelessWidget {
   final VoidCallback onTap;
-  const SocialLoginButton({ Key? key, required this.onTap }) : super(key: key);
+  final String label;
+  final AssetImage img;
+  const SocialLoginButton({Key? key, required this.onTap, required this.label, required this.img})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +22,17 @@ class SocialLoginButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/google.png'),
-            SizedBox(width: 20,),
+            Image.asset(img.assetName),
+            SizedBox(
+              width: 20,
+            ),
             Text(
-              'Entrar com Google',
+              label,
               style: GoogleFonts.montserrat(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: Colors.grey[800],
-              ), 
+              ),
             ),
           ],
         ),

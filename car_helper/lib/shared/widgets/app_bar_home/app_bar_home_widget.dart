@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AppBarHomeWidget extends PreferredSize {
   final double height;
@@ -66,6 +67,10 @@ class AppBarHomeWidget extends PreferredSize {
                     IconButton(
                       onPressed: () { 
                         FirebaseAuth.instance.signOut();
+                        GoogleSignIn _googleSignIn = GoogleSignIn(
+                          scopes: [ 'email',],
+                        );
+                        _googleSignIn.disconnect();
                         Navigator.of(context).pushReplacementNamed('/auth');
                         }, 
                       icon: Icon(FontAwesomeIcons.timesCircle, color: Colors.white,)
