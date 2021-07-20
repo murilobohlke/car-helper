@@ -1,10 +1,12 @@
 import 'package:car_helper/shared/models/auth_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
+import 'package:car_helper/shared/widgets/social_login/social_login_button.dart';
 import 'package:car_helper/shared/widgets/text_input/text_input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFormWidget extends StatefulWidget {
   final void Function(AuthModel authModel) onSubmit;
@@ -18,6 +20,20 @@ class AuthFormWidget extends StatefulWidget {
 class _AuthFormWidgetState extends State<AuthFormWidget> {
   final AuthModel _authModel = AuthModel();
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+  Future<void> googleSingIn(BuildContext context) async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+      ],
+    );
+    try {
+      final response = await _googleSignIn.signIn();
+      print(response);
+    } catch (error) {
+      print(error);
+    }
+  }
 
   _submit() {
     bool isValid = _formKey.currentState!.validate();
@@ -64,12 +80,14 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
                           onChanged: (value) => _authModel.name = value
                         ),
                         TextInputWidget(
+                          textCapt: TextCapitalization.none,
                           key: ValueKey('email'),
                           label: 'Email', 
                           icon: FontAwesomeIcons.envelope,
                           onChanged: (value) => _authModel.email = value
                         ),
                         TextInputWidget(
+                          textCapt: TextCapitalization.none,
                           key: ValueKey('password'),
                           label: 'Senha',
                           obscure: true,
@@ -83,6 +101,9 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
                             label: _authModel.isLogin ? 'Entrar' : 'Cadastrar',
                             onPressed: _submit),
                         SizedBox(height: 20,),
+                        SocialLoginButton(onTap: (){
+                          googleSingIn(context);
+                        }),
                         TextButton(
                             onPressed: () {
                               setState(() {

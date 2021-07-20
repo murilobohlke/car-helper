@@ -6,14 +6,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AuthScreen extends StatefulWidget {
-  const AuthScreen({ Key? key }) : super(key: key);
+class AuthPage extends StatefulWidget {
+  const AuthPage({ Key? key }) : super(key: key);
 
   @override
-  _AuthScreenState createState() => _AuthScreenState();
+  _AuthPageState createState() => _AuthPageState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _AuthPageState extends State<AuthPage> {
   final _auth = FirebaseAuth.instance;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 

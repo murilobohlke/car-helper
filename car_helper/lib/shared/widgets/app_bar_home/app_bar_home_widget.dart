@@ -1,6 +1,8 @@
 import 'package:car_helper/shared/themes/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppBarHomeWidget extends PreferredSize {
@@ -44,6 +46,32 @@ class AppBarHomeWidget extends PreferredSize {
                   )
                 )
               )
+            ),
+            Positioned(
+              top: 30,
+              left: 30,
+              right: 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Olá, Murilo',
+                      style: GoogleFonts.lexendDeca(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100,
+                        color: Colors.white,
+                      )
+                    ),
+                    Spacer(),
+                    IconButton(
+                      onPressed: () { 
+                        FirebaseAuth.instance.signOut();
+                        Navigator.of(context).pushReplacementNamed('/auth');
+                        }, 
+                      icon: Icon(FontAwesomeIcons.timesCircle, color: Colors.white,)
+                    ),
+                  ],
+                ),
             ),
             Positioned(
               top: 140,
