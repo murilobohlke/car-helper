@@ -10,16 +10,19 @@ class TextInputWidget extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
   final TextInputType? keyboard;
+  final bool obscure;
 
-  const TextInputWidget({ 
-    Key? key, 
-    required this.label, 
-    required this.icon, 
-    this.initialValue, 
-    this.validator, 
-    this.controller, 
+  const TextInputWidget({
+    Key? key,
+    required this.label,
+    required this.icon,
+    this.initialValue,
+    this.obscure = false,
+    this.validator,
+    this.controller,
     this.onChanged,
-    this.keyboard = TextInputType.text }) : super(key: key);
+    this.keyboard = TextInputType.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,32 +32,32 @@ class TextInputWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
           color: Colors.grey[300],
-           borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: TextFormField(
-          keyboardType: keyboard ,
-          controller: controller,
-          validator: validator,
-          initialValue: initialValue,
-          style: GoogleFonts.lexendDeca(
-            fontSize: 16,
-            color: AppColors.primary,
-          ),
+            obscureText: obscure,
+            key: key,
+            onChanged: onChanged,
+            keyboardType: keyboard,
+            controller: controller,
+            validator: validator,
+            initialValue: initialValue,
+            style: GoogleFonts.lexendDeca(
+              fontSize: 16,
+              color: AppColors.primary,
+            ),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.zero,
-              labelText: label,
-              labelStyle:  GoogleFonts.lexendDeca(
-                fontSize: 16,
-                color: AppColors.tertiary,
-              ),
-              icon: Icon(
-                icon,
-                color: AppColors.secondary,
-              ),         
-              border: InputBorder.none
-            )
-          
-        ),
+                contentPadding: EdgeInsets.zero,
+                labelText: label,
+                labelStyle: GoogleFonts.lexendDeca(
+                  fontSize: 16,
+                  color: AppColors.tertiary,
+                ),
+                icon: Icon(
+                  icon,
+                  color: AppColors.secondary,
+                ),
+                border: InputBorder.none)),
       ),
     );
   }

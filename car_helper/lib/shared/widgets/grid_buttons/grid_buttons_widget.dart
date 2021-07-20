@@ -1,12 +1,8 @@
-import 'dart:io';
-
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/widgets/grid_button/grid_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart' as syspaths;
-import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
 class GridButtonsWidget extends StatefulWidget {
@@ -18,8 +14,9 @@ class GridButtonsWidget extends StatefulWidget {
 }
 
 class _GridButtonsWidgetState extends State<GridButtonsWidget> {
-  File? _storedImage;
+
   _takePicture() async {
+    print('here');
     final ImagePicker _picker = ImagePicker();
 
     PickedFile? imageFile =
@@ -27,15 +24,8 @@ class _GridButtonsWidgetState extends State<GridButtonsWidget> {
 
     if (imageFile == null) return;
 
-    setState(() {
-      _storedImage = File(imageFile.path);
-    });
-
-    final appDir = await syspaths.getApplicationDocumentsDirectory();
-    String fileName = path.basename(_storedImage!.path);
-    final savedImage = await _storedImage!.copy('${appDir.path}/$fileName');
-
-    Provider.of<CarsProvider>(context, listen: false).addPhoto(imageFile.path, widget.car);
+    Provider.of<CarsProvider>(context, listen: false)
+        .addPhoto(imageFile.path, widget.car);
   }
 
   @override

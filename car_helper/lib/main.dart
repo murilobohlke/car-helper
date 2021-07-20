@@ -1,45 +1,45 @@
-import 'package:car_helper/modules/add_car/add_car_page.dart';
-import 'package:car_helper/modules/home/home_page.dart';
-import 'package:car_helper/modules/image/image_screen.dart';
-import 'package:car_helper/modules/info_car/info_car_page.dart';
-import 'package:car_helper/modules/refueling/refueling_page.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
-import 'package:car_helper/shared/themes/app_colors.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'modules/splash/splash_screen.dart';
+import 'app_widget.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => CarsProvider(),
-    child: AppWidget()
+    child: AppFirebase()
     )
   );
 }
 
-class AppWidget extends StatelessWidget {
-  const AppWidget({ Key? key }) : super(key: key);
+class AppFirebase extends StatefulWidget {
+  // This widget is the root of your application.
+  @override
+  _AppFirebaseState createState() => _AppFirebaseState();
+}
 
+class _AppFirebaseState extends State<AppFirebase> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: AppColors.primary,
-        appBarTheme: AppBarTheme(
-          brightness: Brightness.dark,
-        ),
-      ),
-      title: 'Car Helper',
-      initialRoute: "/splash",
-      routes: {
-        "/home": (context) => HomePage(),
-        "/info_car": (context) => InfoCarPage(),        
-        "/refueling": (context) => RefuelingPage(),
-        "/add_car": (context) => AddCarPage(),
-        "/image": (context) => ImageScreen(),
-        "/splash": (context) => SplashScreen(),
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Material(
+            child: Center(
+              child: Text('Não foi possível inicializar o Firebase!', textDirection: TextDirection.ltr,),
+            ),
+          );
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          return AppWidget();
+        }
+        return Material(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
       },
     );
   }

@@ -86,7 +86,6 @@ class _ImageInputWidgetState extends State<ImageInputWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // print(widget.img);
     return AnimatedCard(
       direction: AnimatedCardDirection.left,
       child: InkWell(

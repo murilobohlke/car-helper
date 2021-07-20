@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class ImageScreen extends StatelessWidget {
   const ImageScreen({Key? key}) : super(key: key);
@@ -24,7 +25,9 @@ class ImageScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10,),
-          IconButton(onPressed: (){}, icon: Icon(Icons.share, color: AppColors.tertiary,))
+          IconButton(onPressed: (){
+            Share.shareFiles([image], text: 'Imagem incrível');
+          }, icon: Icon(Icons.share, color: AppColors.tertiary,))
         ],
       ),
     );
