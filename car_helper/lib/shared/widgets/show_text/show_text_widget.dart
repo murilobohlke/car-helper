@@ -6,20 +6,23 @@ import 'package:google_fonts/google_fonts.dart';
 class ShowTextWidget extends StatelessWidget {
   final String label;
   final String text;
-   final IconData icon;
+  final IconData? icon;
+  final bool isWhite;
+  final double textSize;
 
-  const ShowTextWidget({Key? key, required this.icon, required this.label, required this.text}) : super(key: key);
+  const ShowTextWidget({Key? key, this.textSize = 18, this.isWhite = false, this.icon, required this.label, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: isWhite? Colors.white : Colors.grey[300],
         borderRadius: BorderRadius.circular(15),
       ),
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
+          if(icon!=null)
           Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Icon(
@@ -40,7 +43,7 @@ class ShowTextWidget extends StatelessWidget {
               Text(
                 text,
                 style: GoogleFonts.lexendDeca(
-                  fontSize: 18,
+                  fontSize: textSize,
                   color: AppColors.primary,
                 ),
               ),

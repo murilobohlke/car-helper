@@ -16,105 +16,111 @@ class RefuelingTileWidget extends StatelessWidget {
         ref:ref,
         text: 'A informação será excluída, você confirma?',
         id: id,
-        child: Container(
-          //margin: EdgeInsets.symmetric(vertical: 10),
-          padding: EdgeInsets.all(10),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: AppColors.contrastBackground,
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      Icon(FontAwesomeIcons.solidCalendarAlt,
-                          color: AppColors.secondary, size: 18),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        ref.date,
-                        style: GoogleFonts.lexendDeca(
-                          fontSize: 13,
-                          color: Colors.grey[800],
+        child: Card(
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            ),
+            elevation: 6,
+            child: Container(
+            //margin: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.all(10),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: AppColors.contrastBackground,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(FontAwesomeIcons.solidCalendarAlt,
+                            color: AppColors.secondary, size: 18),
+                        SizedBox(
+                          width: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(FontAwesomeIcons.solidClock,
-                          color: AppColors.secondary, size: 18),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        ref.hour,
-                        style: GoogleFonts.lexendDeca(
-                          fontSize: 13,
-                          color: Colors.grey[800],
+                        Text(
+                          ref.date,
+                          style: GoogleFonts.lexendDeca(
+                            fontSize: 13,
+                            color: Colors.grey[800],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(FontAwesomeIcons.tachometerAlt,
-                          color: AppColors.secondary, size: 18),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        ref.odometer,
-                        style: GoogleFonts.lexendDeca(
-                          fontSize: 13,
-                          color: Colors.grey[800],
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(FontAwesomeIcons.solidClock,
+                            color: AppColors.secondary, size: 18),
+                        SizedBox(
+                          width: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              Text(
-                'Gasolina ${ref.type}',
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.tertiary,
+                        Text(
+                          ref.hour,
+                          style: GoogleFonts.lexendDeca(
+                            fontSize: 13,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(FontAwesomeIcons.tachometerAlt,
+                            color: AppColors.secondary, size: 18),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          ref.odometer,
+                          style: GoogleFonts.lexendDeca(
+                            fontSize: 13,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Preço Litro R\$ ${ref.price}',
-                    style: GoogleFonts.lexendDeca(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
-                    ),
+                SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  'Gasolina ${ref.type}',
+                  style: GoogleFonts.lexendDeca(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.tertiary,
                   ),
-                  Text(
-                    'Total R\$ ${ref.total}',
-                    style: GoogleFonts.lexendDeca(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Preço Litro R\$ ${ref.price}',
+                      style: GoogleFonts.lexendDeca(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Text(
+                      'Total R\$ ${ref.total}',
+                      style: GoogleFonts.lexendDeca(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
   }

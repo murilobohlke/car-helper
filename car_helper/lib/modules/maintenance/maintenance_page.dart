@@ -1,5 +1,5 @@
 
-import 'package:car_helper/shared/widgets/maintenance_tile/maintenance_tile_widget.dart';
+import 'package:car_helper/shared/widgets/maintenance_expansion_tile/maintenance_expansion_tile_widget.dart';
 import 'package:car_helper/shared/widgets/text_input/text_input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +16,7 @@ class MaintenancePage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              MaintenanceTileWidget(
+              MaintenanceExpansionTileWidget(
                 title: 'Troca de Óleo e Filtros',
                 child: Column(
                   children: [
@@ -44,7 +44,7 @@ class MaintenancePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10,),
-              MaintenanceTileWidget(
+              MaintenanceExpansionTileWidget(
                 title: 'Calibragem de Pneus',
                 child: Column(
                   children: [
@@ -62,7 +62,7 @@ class MaintenancePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10,),
-              MaintenanceTileWidget(
+              MaintenanceExpansionTileWidget(
                 title: 'Outra Manutenção',
                 child: Column(
                   children: [
