@@ -4,6 +4,7 @@ import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/dismissible/dismissible_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CarTileWidget extends StatelessWidget {
@@ -49,24 +50,38 @@ class CarTileWidget extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          data.model!,
-                          style: GoogleFonts.lexendDeca(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FontAwesomeIcons.solidStar, color: Colors.white, size: 15,),
+                            SizedBox(width: 10,),
+                            Text(
+                              data.model!,
+                              style: GoogleFonts.lexendDeca(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          data.brand!,
-                          style: GoogleFonts.lexendDeca(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FontAwesomeIcons.car, color: Colors.white, size: 15,),
+                            SizedBox(width: 10,),
+                            Text(
+                              data.brand!,
+                              style: GoogleFonts.lexendDeca(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

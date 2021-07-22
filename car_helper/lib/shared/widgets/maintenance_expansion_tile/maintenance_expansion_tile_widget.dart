@@ -1,4 +1,5 @@
 import 'package:car_helper/shared/themes/app_colors.dart';
+import 'package:car_helper/shared/widgets/filter_checkbox_tile/filter_checkbox_tile_widget.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
 import 'package:car_helper/shared/widgets/secondary_button/secondary_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 class MaintenanceExpansionTileWidget extends StatefulWidget {
   final String title;
   final Widget child;
+  final bool isFilters;
   const MaintenanceExpansionTileWidget(
-      {required this.title, required this.child});
+      {required this.title, required this.child, this.isFilters = false});
 
   @override
   _MaintenanceExpansionTileWidgetState createState() =>
@@ -18,7 +20,10 @@ class MaintenanceExpansionTileWidget extends StatefulWidget {
 
 class _MaintenanceExpansionTileWidgetState
     extends State<MaintenanceExpansionTileWidget> {
-  bool checkedValue = false;
+  bool oilFilter = false;
+  bool airFilter = false;
+  bool gasFilter = false;
+  bool airCFilter = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,46 +53,39 @@ class _MaintenanceExpansionTileWidgetState
                   SizedBox(
                     height: 5,
                   ),
-                  CheckboxListTile(
-                    title: Text("Filtro de Óleo"),
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue!;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading, 
-                  ),
-                  CheckboxListTile(
-                    title: Text("Filtro de Ar"),
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue!;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading, 
-                  ),
-                  CheckboxListTile(
-                    title: Text("Filtro de Combustível"),
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue!;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading, 
-                  ),
-                  CheckboxListTile(
-                    title: Text("Filtro de Ar Condicionado"),
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue!;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading, 
-                  ),
+                  if (widget.isFilters)
+                    Column(
+                      children: [
+                        FilterCheckboxTileWidget(
+                          label: 'Filtro de Óleo',
+                          filter: oilFilter, 
+                          onChanged:(newValue) {
+                            setState(() {oilFilter = newValue;});
+                          },
+                        ),
+                        FilterCheckboxTileWidget(
+                          label: 'Filtro de Ar',
+                          filter: airFilter, 
+                          onChanged:(newValue) {
+                            setState(() {airFilter = newValue;});
+                          },
+                        ),
+                        FilterCheckboxTileWidget(
+                          label: 'Filtro de Combustível',
+                          filter: gasFilter, 
+                          onChanged:(newValue) {
+                            setState(() {gasFilter = newValue;});
+                          },
+                        ),
+                        FilterCheckboxTileWidget(
+                          label: 'Filtro de Ar Condicionado',
+                          filter: airCFilter, 
+                          onChanged:(newValue) {
+                            setState(() {airCFilter = newValue;});
+                          },
+                        ),
+                      ],
+                    ),
                   SizedBox(
                     height: 20,
                   ),
@@ -95,7 +93,15 @@ class _MaintenanceExpansionTileWidgetState
                     children: [
                       Expanded(
                           child: SecondaryButtonWidget(
-                              label: 'Limpar', onPressed: () {})),
+                              label: 'Limpar',
+                              onPressed: () {
+                                setState(() {
+                                  airFilter = false;
+                                  airCFilter = false;
+                                  oilFilter = false;
+                                  gasFilter = false;
+                                });
+                              })),
                       SizedBox(
                         width: 20,
                       ),
