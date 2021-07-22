@@ -11,9 +11,12 @@ class TextInputWidget extends StatelessWidget {
   final void Function(String value)? onChanged;
   final TextInputType? keyboard;
   final bool obscure;
+  final TextCapitalization textCapt;
+  final bool whiteColor;
 
   const TextInputWidget({
     Key? key,
+    this.textCapt = TextCapitalization.sentences,
     required this.label,
     required this.icon,
     this.initialValue,
@@ -21,6 +24,7 @@ class TextInputWidget extends StatelessWidget {
     this.validator,
     this.controller,
     this.onChanged,
+    this.whiteColor =  false,
     this.keyboard = TextInputType.text,
   }) : super(key: key);
 
@@ -31,10 +35,11 @@ class TextInputWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: whiteColor ? Colors.white : Colors.grey[300],
           borderRadius: BorderRadius.circular(15),
         ),
         child: TextFormField(
+            textCapitalization: textCapt,
             obscureText: obscure,
             key: key,
             onChanged: onChanged,

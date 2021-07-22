@@ -4,8 +4,8 @@ import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
-class ImageScreen extends StatelessWidget {
-  const ImageScreen({Key? key}) : super(key: key);
+class ImagePage extends StatelessWidget {
+  const ImagePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,8 @@ class ImageScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: Image.file(
               File(image),
-                
+              height: MediaQuery.of(context).size.height / 1.8,
+              width: double.infinity,
             ),
           ),
           SizedBox(height: 10,),

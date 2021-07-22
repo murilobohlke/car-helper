@@ -51,6 +51,7 @@ class _GridButtonsWidgetState extends State<GridButtonsWidget> {
           ),
           GridButtonWidget(
             label: 'Manutenção',
+            onPressed: () => Navigator.of(context).pushNamed('/maintenance'),
           ),
         ],
       ),

@@ -36,76 +36,76 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         elevation: 10,
-          margin: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Image.asset('assets/images/car.png', width: 120, height: 60,),
-                  Text(
-                    'Car Helper',
-                    style: GoogleFonts.lexendDeca(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.tertiary,
-                  )
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        SizedBox(height: 30,),
-                        if (_authModel.isSignup)
-                        TextInputWidget(
-                          key: ValueKey('name'),
-                          label: 'Nome', 
-                          icon: FontAwesomeIcons.user,
-                          onChanged: (value) => _authModel.name = value
-                        ),
-                        TextInputWidget(
-                          key: ValueKey('email'),
-                          label: 'Email', 
-                          icon: FontAwesomeIcons.envelope,
-                          onChanged: (value) => _authModel.email = value
-                        ),
-                        TextInputWidget(
-                          key: ValueKey('password'),
-                          label: 'Senha',
-                          obscure: true,
-                          icon: FontAwesomeIcons.key,
-                          onChanged: (value) => _authModel.password = value
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        PrimaryButtonWidget(
-                            label: _authModel.isLogin ? 'Entrar' : 'Cadastrar',
-                            onPressed: _submit),
-                        SizedBox(height: 20,),
-                        TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _authModel.toggleMode();
-                              });
-                            },
-                            child: Text(_authModel.isLogin
-                                ? 'Criar nova conta?'
-                                : 'Já possui conta?',
-                                style: GoogleFonts.lexendDeca(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.secondary,
-                              )
-                            )
-                        )
-                      ],
-                    ),
-                  ),
-                ],
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Image.asset('assets/images/car.png', width: 120, height: 60,),
+              Text(
+                'Car Helper',
+                style: GoogleFonts.lexendDeca(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.tertiary,
+              )
               ),
-            ),
-          )),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 30,),
+                    if (_authModel.isSignup)
+                    TextInputWidget(
+                      key: ValueKey('name'),
+                      label: 'Nome', 
+                      icon: FontAwesomeIcons.user,
+                      onChanged: (value) => _authModel.name = value
+                    ),
+                    TextInputWidget(
+                      textCapt: TextCapitalization.none,
+                      key: ValueKey('email'),
+                      label: 'Email', 
+                      icon: FontAwesomeIcons.envelope,
+                      onChanged: (value) => _authModel.email = value
+                    ),
+                    TextInputWidget(
+                      textCapt: TextCapitalization.none,
+                      key: ValueKey('password'),
+                      label: 'Senha',
+                      obscure: true,
+                      icon: FontAwesomeIcons.key,
+                      onChanged: (value) => _authModel.password = value
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    PrimaryButtonWidget(
+                        label: _authModel.isLogin ? 'Entrar' : 'Cadastrar',
+                        onPressed: _submit),
+                    SizedBox(height: 20,),
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _authModel.toggleMode();
+                          });
+                        },
+                        child: Text(_authModel.isLogin
+                            ? 'Criar nova conta?'
+                            : 'Já possui conta?',
+                            style: GoogleFonts.lexendDeca(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.secondary,
+                          )
+                        )
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )),
     );
   }
 }
