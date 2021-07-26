@@ -13,6 +13,7 @@ class CarTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     var img = File(data.image!);
     return GestureDetector(
       onTap: () {
@@ -53,8 +54,14 @@ class CarTileWidget extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(FontAwesomeIcons.solidStar, color: Colors.white, size: 15,),
-                            SizedBox(width: 10,),
+                            Icon(
+                              FontAwesomeIcons.solidStar,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
                             Text(
                               data.model!,
                               style: GoogleFonts.lexendDeca(
@@ -71,8 +78,14 @@ class CarTileWidget extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(FontAwesomeIcons.car, color: Colors.white, size: 15,),
-                            SizedBox(width: 10,),
+                            Icon(
+                              FontAwesomeIcons.car,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
                             Text(
                               data.brand!,
                               style: GoogleFonts.lexendDeca(

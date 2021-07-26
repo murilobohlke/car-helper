@@ -15,7 +15,6 @@ class InfoCarHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AnimatedCard(
       direction: AnimatedCardDirection.bottom,
       child: Center(
@@ -24,7 +23,9 @@ class InfoCarHomePage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 Text('Informações sobre ${car.nick == '' ? 'carro' : car.nick}',
                     style: GoogleFonts.lexendDeca(
                       fontSize: 18,
@@ -41,9 +42,13 @@ class InfoCarHomePage extends StatelessWidget {
                 Consumer<CarsProvider>(
                     builder: (context, value, child) =>
                         RefuelingCardWidget(data: value.itemById(car.id!))),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 MaintenanceCardWidget(data: car),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 GridButtonsWidget(car: car)
               ],
             ),

@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:car_helper/shared/db/db_util.dart';
+import 'package:car_helper/shared/models/calibragem_model.dart';
 import 'package:car_helper/shared/models/car_model.dart';
+import 'package:car_helper/shared/models/other_maintenance_model.dart';
 import 'package:car_helper/shared/models/refueling_model.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -21,7 +23,6 @@ class CarsProvider with ChangeNotifier {
 
       if (item['images'] != '') {
         imgs = (jsonDecode(item['images']) as List<dynamic>).cast<String>();
-
       }
 
       if (item['refuelings'] != '') {
@@ -37,8 +38,41 @@ class CarsProvider with ChangeNotifier {
           model: item['model'],
           nick: item['nick'],
           refuelings: r,
-          images: imgs);
+          images: imgs,
+          calibragens: [
+            CalibragemModel(date: '25/07/2021', libras: 34.0),
+            CalibragemModel(date: '15/06/2021', libras: 32.0)
+          ],
+          oils: [
+            // OilModel(
+            //     date: '12/06/2021',
+            //     odometer: '97.897',
+            //     oil: '5W30',
+            //     value: 137.7,
+            //     oilFilter: true,
+            //     airFilter: false,
+            //     gasFilter: false,
+            //     airCFilter: false),
+            // OilModel(
+            //     date: '07/01/2021',
+            //     odometer: '92.345',
+            //     oil: '5W30',
+            //     value: 147.7,
+            //     oilFilter: true,
+            //     airFilter: true,
+            //     gasFilter: false,
+            //     airCFilter: false),
+          ],
+          others: []);
     }).toList();
+
+    notifyListeners();
+  }
+
+  Future<void> addCalibragem(String date, double libras, CarModel car) async {
+    final newCalibragem = CalibragemModel(date: date, libras: libras);
+
+    car.calibragens!.add(newCalibragem);
 
     notifyListeners();
   }
@@ -55,19 +89,18 @@ class CarsProvider with ChangeNotifier {
 
     car.refuelings!.add(newRefueling);
 
-      DbUtil.update(
-          'cars',
-          {
-            'id': car.id!,
-            'brand': car.brand!,
-            'image': car.image!,
-            'model': car.model!,
-            'nick': car.nick!,
-            'refuelings': jsonEncode(car.refuelings!),
-            'images': jsonEncode(car.images!)
-          },
-          car.id!);
-   
+    DbUtil.update(
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings!),
+          'images': jsonEncode(car.images!)
+        },
+        car.id!);
 
     notifyListeners();
   }
@@ -114,7 +147,10 @@ class CarsProvider with ChangeNotifier {
         model: model,
         nick: nick,
         refuelings: [],
-        images: []);
+        images: [],
+        calibragens: [],
+        oils: [],
+        others: []);
 
     cars.add(newCar);
 

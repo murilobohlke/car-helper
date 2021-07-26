@@ -2,7 +2,6 @@ import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/shared/models/calibragem_model.dart';
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/models/oil_model.dart';
-import 'package:car_helper/shared/models/other_maintenance_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/maintenance_tile/maintenance_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,23 +13,26 @@ class InfoCarMaintencePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    OilModel aux = OilModel(
-        date: '12/06/2021',
-        odometer: '97.897',
-        oil: '5W30',
-        value: 137.7,
-        oilFilter: true,
-        airFilter: false,
-        gasFilter: false,
-        airCFilter: false);
+    print(car);
+    List<dynamic> all() {
+      List<dynamic> aux = [
+        ...car.calibragens!,
+        ...car.oils!,
+        ...car.others!,
+      ];
 
-    CalibragemModel aux2 = CalibragemModel(date: '25/07/2021', libras: 34.0);
+      aux.sort((a, b) {
+        var adate = a.date;
+        var bdate = b.date;
+        return adate.compareTo(bdate);
+      });
 
-    OtherMaintenanceModel aux3 = OtherMaintenanceModel(
-        date: '25/06/2021',
-        odometer: '96.421',
-        title: 'Limpeza dos bancos',
-        total: 68.39);
+      return aux.reversed.toList();
+    }
+
+    int size() {
+      return car.calibragens!.length + car.oils!.length + car.others!.length;
+    }
 
     return AnimatedCard(
       direction: AnimatedCardDirection.top,
@@ -54,20 +56,25 @@ class InfoCarMaintencePage extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            MaintenanceTileWidget(
-              oil: aux,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            MaintenanceTileWidget(
-              calibragem: aux2,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            MaintenanceTileWidget(
-              other: aux3,
+            Expanded(
+              child: ListView.builder(
+                  itemCount: size(),
+                  itemBuilder: (context, i) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: all()[i] is CalibragemModel
+                          ? MaintenanceTileWidget(
+                              calibragem: all()[i],
+                            )
+                          : all()[i] is OilModel
+                              ? MaintenanceTileWidget(
+                                  oil: all()[i],
+                                )
+                              : MaintenanceTileWidget(
+                                  other: all()[i],
+                                ),
+                    );
+                  }),
             )
           ],
         ),

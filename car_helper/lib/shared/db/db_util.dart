@@ -10,7 +10,7 @@ class DbUtil {
       onCreate: (db, version) {
 
         return db.execute(
-            'CREATE TABLE cars (id TEXT PRIMARY KEY, brand TEXT, model TEXT, image TEXT, nick TEXT, refuelings TEXT, images TEXT)');
+            'CREATE TABLE cars (id TEXT PRIMARY KEY, brand TEXT, model TEXT, image TEXT, nick TEXT, refuelings TEXT, images TEXT, calibragens TEXT, oils TEXT, others TEXT)');
       },
       version: 1,
     );

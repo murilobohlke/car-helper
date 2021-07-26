@@ -1,9 +1,13 @@
+import 'package:car_helper/shared/models/car_model.dart';
+import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/widgets/maintenance_expansion_tile/maintenance_expansion_tile_widget.dart';
 import 'package:car_helper/shared/widgets/text_input/text_input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MaintenancePage extends StatelessWidget {
+
   const MaintenancePage({Key? key}) : super(key: key);
 
   @override
@@ -21,6 +25,8 @@ class MaintenancePage extends StatelessWidget {
     TextEditingController descriptionOther = TextEditingController();
     TextEditingController valueOther = TextEditingController();
     TextEditingController titleOther = TextEditingController();
+
+    final CarModel car = ModalRoute.of(context)!.settings.arguments as CarModel;
 
     return Scaffold(
       appBar: AppBar(
@@ -78,6 +84,12 @@ class MaintenancePage extends StatelessWidget {
               ),
               MaintenanceExpansionTileWidget(
                 save2: () {
+                  Provider.of<CarsProvider>(context, listen: false)
+                      .addCalibragem(
+                    dateCalibragem.text,
+                    double.parse(librasCalibragem.text),
+                    car
+                  );
                   Navigator.of(context).pop();
                 },
                 clean: () {
@@ -107,6 +119,7 @@ class MaintenancePage extends StatelessWidget {
               ),
               MaintenanceExpansionTileWidget(
                 save2: () {
+
                   Navigator.of(context).pop();
                 },
                 clean: () {
@@ -136,7 +149,7 @@ class MaintenancePage extends StatelessWidget {
                       icon: FontAwesomeIcons.solidFileAlt,
                       whiteColor: true,
                     ),
-                     TextInputWidget(
+                    TextInputWidget(
                       controller: descriptionOther,
                       label: 'Descrição',
                       icon: FontAwesomeIcons.solidFileAlt,
