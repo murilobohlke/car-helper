@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:car_helper/shared/db/db_util.dart';
 import 'package:car_helper/shared/models/calibragem_model.dart';
 import 'package:car_helper/shared/models/car_model.dart';
-import 'package:car_helper/shared/models/other_maintenance_model.dart';
 import 'package:car_helper/shared/models/refueling_model.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,10 +15,12 @@ class CarsProvider with ChangeNotifier {
     final dataList = await DbUtil.getData('cars');
     List<RefuelingModel>? r;
     List<String>? imgs;
+    List<CalibragemModel>? cal;
 
     cars = dataList.map((item) {
       r = [];
       imgs = [];
+      cal = [];
 
       if (item['images'] != '') {
         imgs = (jsonDecode(item['images']) as List<dynamic>).cast<String>();
@@ -31,6 +32,12 @@ class CarsProvider with ChangeNotifier {
             l.map((model) => RefuelingModel.fromJson(model)));
       }
 
+      if (item['calibragens'] != '') {
+        Iterable l = json.decode(item['calibragens']);
+        cal = List<CalibragemModel>.from(
+            l.map((model) => CalibragemModel.fromJson(model)));
+      }
+
       return CarModel(
           id: item['id'],
           image: item['image'],
@@ -39,10 +46,7 @@ class CarsProvider with ChangeNotifier {
           nick: item['nick'],
           refuelings: r,
           images: imgs,
-          calibragens: [
-            CalibragemModel(date: '25/07/2021', libras: 34.0),
-            CalibragemModel(date: '15/06/2021', libras: 32.0)
-          ],
+          calibragens: cal,
           oils: [
             // OilModel(
             //     date: '12/06/2021',
@@ -73,6 +77,20 @@ class CarsProvider with ChangeNotifier {
     final newCalibragem = CalibragemModel(date: date, libras: libras);
 
     car.calibragens!.add(newCalibragem);
+
+    DbUtil.update(
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings),
+          'images': jsonEncode(car.images),
+          'calibragens': jsonEncode(car.calibragens)
+        },
+        car.id!);
 
     notifyListeners();
   }
@@ -161,7 +179,10 @@ class CarsProvider with ChangeNotifier {
       'model': newCar.model!,
       'nick': newCar.nick!,
       'refuelings': '',
-      'images': ''
+      'images': '',
+      'calibragens': '',
+      'oils': '',
+      'others':''
     });
     notifyListeners();
   }
