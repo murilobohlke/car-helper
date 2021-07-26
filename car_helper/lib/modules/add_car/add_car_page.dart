@@ -150,6 +150,9 @@ class _AddCarPageState extends State<AddCarPage> {
                                       id: car?.id!,
                                       refuelings: car?.refuelings!,
                                       images: car?.images!,
+                                      calibragens: car?.calibragens,
+                                      oils: car?.oils,
+                                      others: car?.others,
                                       image: _pickedImage == null ? car?.image! :_pickedImage!.path,
                                     ));
                                   }

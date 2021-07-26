@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:car_helper/shared/db/db_util.dart';
 import 'package:car_helper/shared/models/calibragem_model.dart';
 import 'package:car_helper/shared/models/car_model.dart';
+import 'package:car_helper/shared/models/oil_model.dart';
+import 'package:car_helper/shared/models/other_maintenance_model.dart';
 import 'package:car_helper/shared/models/refueling_model.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,11 +18,15 @@ class CarsProvider with ChangeNotifier {
     List<RefuelingModel>? r;
     List<String>? imgs;
     List<CalibragemModel>? cal;
+    List<OilModel>? oil;
+    List<OtherMaintenanceModel>? other;
 
     cars = dataList.map((item) {
       r = [];
       imgs = [];
       cal = [];
+      oil = [];
+      other = [];
 
       if (item['images'] != '') {
         imgs = (jsonDecode(item['images']) as List<dynamic>).cast<String>();
@@ -38,6 +44,17 @@ class CarsProvider with ChangeNotifier {
             l.map((model) => CalibragemModel.fromJson(model)));
       }
 
+      if (item['oils'] != '') {
+        Iterable l = json.decode(item['oils']);
+        oil = List<OilModel>.from(l.map((model) => OilModel.fromJson(model)));
+      }
+
+      if (item['others'] != '') {
+        Iterable l = json.decode(item['others']);
+        other = List<OtherMaintenanceModel>.from(
+            l.map((model) => OtherMaintenanceModel.fromJson(model)));
+      }
+
       return CarModel(
           id: item['id'],
           image: item['image'],
@@ -47,27 +64,8 @@ class CarsProvider with ChangeNotifier {
           refuelings: r,
           images: imgs,
           calibragens: cal,
-          oils: [
-            // OilModel(
-            //     date: '12/06/2021',
-            //     odometer: '97.897',
-            //     oil: '5W30',
-            //     value: 137.7,
-            //     oilFilter: true,
-            //     airFilter: false,
-            //     gasFilter: false,
-            //     airCFilter: false),
-            // OilModel(
-            //     date: '07/01/2021',
-            //     odometer: '92.345',
-            //     oil: '5W30',
-            //     value: 147.7,
-            //     oilFilter: true,
-            //     airFilter: true,
-            //     gasFilter: false,
-            //     airCFilter: false),
-          ],
-          others: []);
+          oils: oil,
+          others: other);
     }).toList();
 
     notifyListeners();
@@ -88,7 +86,80 @@ class CarsProvider with ChangeNotifier {
           'nick': car.nick!,
           'refuelings': jsonEncode(car.refuelings),
           'images': jsonEncode(car.images),
-          'calibragens': jsonEncode(car.calibragens)
+          'calibragens': jsonEncode(car.calibragens),
+          'oils': jsonEncode(car.oils),
+          'others': jsonEncode(car.others)
+        },
+        car.id!);
+
+    notifyListeners();
+  }
+
+  Future<void> addOther(String date, String odometer, String title,
+      String description, double total, CarModel car) async {
+    final newOther = OtherMaintenanceModel(
+        date: date,
+        odometer: odometer,
+        description: description,
+        total: total,
+        title: title);
+
+    car.others!.add(newOther);
+
+    DbUtil.update(
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings),
+          'images': jsonEncode(car.images),
+          'calibragens': jsonEncode(car.calibragens),
+          'oils': jsonEncode(car.oils),
+          'others': jsonEncode(car.others)
+        },
+        car.id!);
+
+    notifyListeners();
+  }
+
+  Future<void> addOil(
+      String date,
+      String odometer,
+      String oil,
+      double value,
+      bool oilFilter,
+      bool airFilter,
+      bool gasFilter,
+      bool airCFilter,
+      CarModel car) async {
+    final newOil = OilModel(
+        date: date,
+        odometer: odometer,
+        oil: oil,
+        value: value,
+        oilFilter: oilFilter,
+        airFilter: airFilter,
+        gasFilter: gasFilter,
+        airCFilter: airCFilter);
+
+    car.oils!.add(newOil);
+
+    DbUtil.update(
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings),
+          'images': jsonEncode(car.images),
+          'calibragens': jsonEncode(car.calibragens),
+          'oils': jsonEncode(car.oils),
+          'others': jsonEncode(car.others)
         },
         car.id!);
 
@@ -115,8 +186,11 @@ class CarsProvider with ChangeNotifier {
           'image': car.image!,
           'model': car.model!,
           'nick': car.nick!,
-          'refuelings': jsonEncode(car.refuelings!),
-          'images': jsonEncode(car.images!)
+          'refuelings': jsonEncode(car.refuelings),
+          'images': jsonEncode(car.images),
+          'calibragens': jsonEncode(car.calibragens),
+          'oils': jsonEncode(car.oils),
+          'others': jsonEncode(car.others)
         },
         car.id!);
 
@@ -126,32 +200,21 @@ class CarsProvider with ChangeNotifier {
   Future<void> addPhoto(String image, CarModel car) async {
     car.images!.add(image);
 
-    if (car.refuelings == null) {
-      DbUtil.update(
-          'cars',
-          {
-            'id': car.id!,
-            'brand': car.brand!,
-            'image': car.image!,
-            'model': car.model!,
-            'nick': car.nick!,
-            'images': jsonEncode(car.images!)
-          },
-          car.id!);
-    } else {
-      DbUtil.update(
-          'cars',
-          {
-            'id': car.id!,
-            'brand': car.brand!,
-            'image': car.image!,
-            'model': car.model!,
-            'nick': car.nick!,
-            'refuelings': jsonEncode(car.refuelings!),
-            'images': jsonEncode(car.images!)
-          },
-          car.id!);
-    }
+    DbUtil.update(
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings),
+          'images': jsonEncode(car.images),
+          'calibragens': jsonEncode(car.calibragens),
+          'oils': jsonEncode(car.oils),
+          'others': jsonEncode(car.others)
+        },
+        car.id!);
 
     notifyListeners();
   }
@@ -182,7 +245,7 @@ class CarsProvider with ChangeNotifier {
       'images': '',
       'calibragens': '',
       'oils': '',
-      'others':''
+      'others': ''
     });
     notifyListeners();
   }
@@ -190,7 +253,7 @@ class CarsProvider with ChangeNotifier {
   Future<void> updateCar(
       String brand, String model, String image, String nick, String id) async {
     CarModel car = cars.firstWhere((car) => car.id == id);
-
+    print(car);
     final newCar = CarModel(
         id: id,
         image: image,
@@ -198,7 +261,10 @@ class CarsProvider with ChangeNotifier {
         model: model,
         nick: nick,
         refuelings: car.refuelings,
-        images: car.images);
+        images: car.images,
+        calibragens: car.calibragens,
+        oils: car.oils,
+        others: car.others);
 
     var index = cars.indexOf(car);
 
@@ -215,6 +281,9 @@ class CarsProvider with ChangeNotifier {
           'nick': newCar.nick!,
           'refuelings': jsonEncode(car.refuelings!),
           'images': jsonEncode(car.images!),
+          'calibragens': jsonEncode(car.calibragens!),
+          'oils': jsonEncode(car.oils!),
+          'others': jsonEncode(car.others!)
         },
         id);
     notifyListeners();
@@ -244,7 +313,10 @@ class CarsProvider with ChangeNotifier {
           'model': car.model!,
           'nick': car.nick!,
           'refuelings': jsonEncode(car.refuelings!),
-          'images': jsonEncode(car.images!)
+          'images': jsonEncode(car.images!),
+          'calibragens': jsonEncode(car.calibragens!),
+          'oils': jsonEncode(car.oils!),
+          'others': jsonEncode(car.others!)
         },
         car.id!);
 
@@ -267,7 +339,10 @@ class CarsProvider with ChangeNotifier {
           'model': car.model!,
           'nick': car.nick!,
           'refuelings': jsonEncode(car.refuelings!),
-          'images': jsonEncode(car.images!)
+          'images': jsonEncode(car.images!),
+          'calibragens': jsonEncode(car.calibragens!),
+          'oils': jsonEncode(car.oils!),
+          'others': jsonEncode(car.others!)
         },
         car.id!);
 

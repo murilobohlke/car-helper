@@ -39,7 +39,18 @@ class MaintenancePage extends StatelessWidget {
             children: [
               MaintenanceExpansionTileWidget(
                 save: (airFilter, airCFilter, oilFilter, gasFilter) {
-                  print(airCFilter);
+                  Provider.of<CarsProvider>(context, listen: false)
+                      .addOil(
+                    dateOil.text,
+                    odometerOil.text,
+                    oilOil.text,
+                    double.parse(valueOil.text),
+                    oilFilter,
+                    airFilter,
+                    gasFilter,
+                    airCFilter,
+                    car
+                  );
                   Navigator.of(context).pop();
                 },
                 clean: () {
@@ -119,6 +130,15 @@ class MaintenancePage extends StatelessWidget {
               ),
               MaintenanceExpansionTileWidget(
                 save2: () {
+                  Provider.of<CarsProvider>(context, listen: false)
+                      .addOther(
+                    dateOther.text,
+                    odometerOther.text,
+                    titleOther.text,
+                    descriptionOther.text,
+                    double.parse(valueOther.text),
+                    car
+                  );
 
                   Navigator.of(context).pop();
                 },

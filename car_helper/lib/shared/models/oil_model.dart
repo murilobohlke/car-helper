@@ -11,14 +11,15 @@ class OilModel {
   final bool airCFilter;
 
   OilModel(
-     this.date,
-     this.odometer,
-     this.oil,
-     this.value,
-     this.oilFilter,
-     this.airFilter,
-     this.gasFilter,
-     this.airCFilter);
+      {
+      required this.date,
+      required this.odometer,
+      required this.oil,
+      required this.value,
+      required this.oilFilter,
+      required this.airFilter,
+      required this.gasFilter,
+      required this.airCFilter});
 
   OilModel copyWith({
     String? date,
@@ -31,14 +32,14 @@ class OilModel {
     bool? airCFilter,
   }) {
     return OilModel(
-      date ?? this.date,
-      odometer ?? this.odometer,
-      oil ?? this.oil,
-      value ?? this.value,
-      oilFilter ?? this.oilFilter,
-      airFilter ?? this.airFilter,
-      gasFilter ?? this.gasFilter,
-      airCFilter ?? this.airCFilter,
+      date: date ?? this.date,
+      odometer: odometer ?? this.odometer,
+      oil: oil ?? this.oil,
+      value: value ?? this.value,
+      oilFilter: oilFilter ?? this.oilFilter,
+      airFilter: airFilter ?? this.airFilter,
+      gasFilter: gasFilter ?? this.gasFilter,
+      airCFilter: airCFilter ?? this.airCFilter,
     );
   }
 
@@ -57,14 +58,14 @@ class OilModel {
 
   factory OilModel.fromMap(Map<String, dynamic> map) {
     return OilModel(
-      map['date'],
-      map['odometer'],
-      map['oil'],
-      map['value'],
-      map['oilFilter'],
-      map['airFilter'],
-      map['gasFilter'],
-      map['airCFilter'],
+      date: map['date'],
+      odometer: map['odometer'],
+      oil: map['oil'],
+      value: map['value'],
+      oilFilter: map['oilFilter'],
+      airFilter: map['airFilter'],
+      gasFilter:map['gasFilter'],
+      airCFilter: map['airCFilter'],
     );
   }
 

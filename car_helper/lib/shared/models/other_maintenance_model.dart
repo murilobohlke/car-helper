@@ -7,12 +7,12 @@ class OtherMaintenanceModel {
   final double total;
   final String title;
 
-  OtherMaintenanceModel(
-    this.date,
-    this.odometer,
-    this.description,
-    this.total,
-    this.title );
+  OtherMaintenanceModel({
+    required this.date,
+    required this.odometer,
+    required this.description,
+    required this.total,
+    required this.title} );
 
   OtherMaintenanceModel copyWith({
     String? date,
@@ -22,11 +22,11 @@ class OtherMaintenanceModel {
     String? title,
   }) {
     return OtherMaintenanceModel(
-      date ?? this.date,
-      odometer ?? this.odometer,
-      description ?? this.description,
-      total ?? this.total,
-      title ?? this.title,
+      date: date ?? this.date,
+      odometer: odometer ?? this.odometer,
+      description: description ?? this.description,
+      total: total ?? this.total,
+      title: title ?? this.title,
     );
   }
 
@@ -42,11 +42,11 @@ class OtherMaintenanceModel {
 
   factory OtherMaintenanceModel.fromMap(Map<String, dynamic> map) {
     return OtherMaintenanceModel(
-      map['date'],
-      map['odometer'],
-      map['description'],
-      map['total'],
-      map['title'],
+      date: map['date'],
+      odometer: map['odometer'],
+      description: map['description'],
+      total: map['total'],
+      title: map['title'],
     );
   }
 
