@@ -37,7 +37,7 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
         ),
         elevation: 10,
         margin: EdgeInsets.symmetric(horizontal: 20),
-        child: Padding(
+        child: Container(
           padding: EdgeInsets.all(16),
           child: Column(
             children: [

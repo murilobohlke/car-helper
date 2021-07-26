@@ -1,4 +1,3 @@
-
 import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
@@ -26,56 +25,63 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               Text('Meus Carros',
-                style: GoogleFonts.lexendDeca(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[800],
-                )
-              ),
+                  style: GoogleFonts.lexendDeca(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  )),
               Container(
                 width: 60,
                 height: 3,
                 color: AppColors.tertiary.withOpacity(0.8),
                 margin: EdgeInsets.symmetric(vertical: 5),
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Expanded(
                 child: FutureBuilder(
-                  future: Provider.of<CarsProvider>(context, listen: false).loadCars(),
-                  builder: (context, snapshot) => snapshot.connectionState == ConnectionState.waiting
-                    ? Center(child: CircularProgressIndicator(color: AppColors.tertiary,),) 
-                    : Consumer<CarsProvider> (
-                      builder: (ctx, cars, ch) => cars.itemsCount == 0 ? Center(
-                        child: Text(
-                          'Nenhum carro cadastrado!',
-                          style: GoogleFonts.lexendDeca(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800],
-                          )
+                  future: Provider.of<CarsProvider>(context, listen: false)
+                      .loadCars(),
+                  builder: (context, snapshot) => snapshot.connectionState ==
+                          ConnectionState.waiting
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.tertiary,
+                          ),
                         )
-                      ) : ListView.builder(
-                        itemCount: cars.itemsCount,
-                        itemBuilder: (context, i) {
-                          return  Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: AnimatedCard(
-                              direction: AnimatedCardDirection.right,
-                              child: CarTileWidget(cars.itemByIndex(i))
-                            ),
-                          );
-                        }
-                      )
-                    ),
+                      : Consumer<CarsProvider>(
+                          builder: (ctx, cars, ch) => cars.itemsCount == 0
+                              ? Center(
+                                  child: Text('Nenhum carro cadastrado!',
+                                      style: GoogleFonts.lexendDeca(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey[800],
+                                      )))
+                              : ListView.builder(
+                                  itemCount: cars.itemsCount,
+                                  itemBuilder: (context, i) {
+                                    return Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      child: AnimatedCard(
+                                          direction:
+                                              AnimatedCardDirection.right,
+                                          child: CarTileWidget(
+                                              cars.itemByIndex(i))),
+                                    );
+                                  })),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               PrimaryButtonWidget(
-                label: 'Adicionar Carro',
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/add_car');
-                }
-              )
+                  label: 'Adicionar Carro',
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/add_car');
+                  })
             ],
           ),
         ),

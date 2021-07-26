@@ -39,7 +39,7 @@ dependencies:
   share: ^2.0.4
   google_sign_in: ^5.0.5
   google_sign_in_web: ^0.10.0
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

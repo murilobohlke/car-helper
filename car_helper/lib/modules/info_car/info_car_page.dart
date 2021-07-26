@@ -64,7 +64,7 @@ class _InfoCarPageState extends State<InfoCarPage> {
         InfoCarGalleryPage(car: car,),
         InfoCarInfoPage(car),
       ][_selectedIndex],
-      bottomNavigationBar:  BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,

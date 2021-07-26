@@ -10,8 +10,17 @@ class MaintenanceExpansionTileWidget extends StatefulWidget {
   final String title;
   final Widget child;
   final bool isFilters;
+  final Function clean;
+  final Function(bool a, bool b, bool c, bool d)? save;
+  final Function? save2;
+
   const MaintenanceExpansionTileWidget(
-      {required this.title, required this.child, this.isFilters = false});
+      {required this.clean,
+      required this.title,
+      required this.child,
+      this.save,
+      this.save2,
+      this.isFilters = false});
 
   @override
   _MaintenanceExpansionTileWidgetState createState() =>
@@ -58,30 +67,38 @@ class _MaintenanceExpansionTileWidgetState
                       children: [
                         FilterCheckboxTileWidget(
                           label: 'Filtro de Óleo',
-                          filter: oilFilter, 
-                          onChanged:(newValue) {
-                            setState(() {oilFilter = newValue;});
+                          filter: oilFilter,
+                          onChanged: (newValue) {
+                            setState(() {
+                              oilFilter = newValue;
+                            });
                           },
                         ),
                         FilterCheckboxTileWidget(
                           label: 'Filtro de Ar',
-                          filter: airFilter, 
-                          onChanged:(newValue) {
-                            setState(() {airFilter = newValue;});
+                          filter: airFilter,
+                          onChanged: (newValue) {
+                            setState(() {
+                              airFilter = newValue;
+                            });
                           },
                         ),
                         FilterCheckboxTileWidget(
                           label: 'Filtro de Combustível',
-                          filter: gasFilter, 
-                          onChanged:(newValue) {
-                            setState(() {gasFilter = newValue;});
+                          filter: gasFilter,
+                          onChanged: (newValue) {
+                            setState(() {
+                              gasFilter = newValue;
+                            });
                           },
                         ),
                         FilterCheckboxTileWidget(
                           label: 'Filtro de Ar Condicionado',
-                          filter: airCFilter, 
-                          onChanged:(newValue) {
-                            setState(() {airCFilter = newValue;});
+                          filter: airCFilter,
+                          onChanged: (newValue) {
+                            setState(() {
+                              airCFilter = newValue;
+                            });
                           },
                         ),
                       ],
@@ -96,6 +113,7 @@ class _MaintenanceExpansionTileWidgetState
                               label: 'Limpar',
                               onPressed: () {
                                 setState(() {
+                                  widget.clean();
                                   airFilter = false;
                                   airCFilter = false;
                                   oilFilter = false;
@@ -107,7 +125,15 @@ class _MaintenanceExpansionTileWidgetState
                       ),
                       Expanded(
                           child: PrimaryButtonWidget(
-                              label: 'Salvar', onPressed: () {})),
+                              label: 'Salvar',
+                              onPressed: () {
+                                if (widget.save != null) {
+                                  widget.save!(airFilter, airCFilter, oilFilter,
+                                      gasFilter);
+                                } else {
+                                  widget.save2!();
+                                }
+                              })),
                     ],
                   )
                 ],

@@ -14,6 +14,7 @@ class _SplashPageState extends State<SplashPage> {
   void delay(BuildContext context) async {
     await Future.delayed(Duration(seconds: 3));
     //Navigator.of(context).pushReplacementNamed('/home');
+
     FirebaseAuth.instance
       .authStateChanges()
       .listen((User? user) {
