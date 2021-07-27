@@ -1,3 +1,4 @@
+
 import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
@@ -71,7 +72,8 @@ class HomePage extends StatelessWidget {
                                           child: CarTileWidget(
                                               cars.itemByIndex(i))),
                                     );
-                                  })),
+                                  })
+                                ),
                 ),
               ),
               SizedBox(
@@ -81,7 +83,7 @@ class HomePage extends StatelessWidget {
                   label: 'Adicionar Carro',
                   onPressed: () {
                     Navigator.of(context).pushNamed('/add_car');
-                  })
+                  }),
             ],
           ),
         ),

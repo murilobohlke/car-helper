@@ -41,7 +41,7 @@ class InfoCarMaintencePage extends StatelessWidget {
         margin: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 4),
         child: Column(
           children: [
-            Text('Manutenção',
+            Text('Manutenções',
                 style: GoogleFonts.lexendDeca(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -57,7 +57,18 @@ class InfoCarMaintencePage extends StatelessWidget {
               height: 10,
             ),
             Expanded(
-              child: ListView.builder(
+              child: size() == 0 
+              ? Center(
+                child: Text(
+                  'Sem Manutenções',
+                  style: GoogleFonts.lexendDeca(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    )
+                ),
+              )
+              : ListView.builder(
                   itemCount: size(),
                   itemBuilder: (context, i) {
                     return Padding(
@@ -65,13 +76,16 @@ class InfoCarMaintencePage extends StatelessWidget {
                       child: all()[i] is CalibragemModel
                           ? MaintenanceTileWidget(
                               calibragem: all()[i],
+                              car: car,
                             )
                           : all()[i] is OilModel
                               ? MaintenanceTileWidget(
                                   oil: all()[i],
+                                  car: car,
                                 )
                               : MaintenanceTileWidget(
                                   other: all()[i],
+                                  car: car,
                                 ),
                     );
                   }),

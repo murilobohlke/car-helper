@@ -13,7 +13,6 @@ class CarTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var img = File(data.image!);
     return GestureDetector(
       onTap: () {

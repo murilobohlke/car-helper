@@ -323,6 +323,41 @@ class CarsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteMaintenance(model, String id) async {
+    CarModel car = cars.firstWhere((car) => car.id == id);
+
+    var index = cars.indexOf(car);
+
+    if(model is CalibragemModel){
+      cars[index].calibragens!.remove(model);
+    }
+
+    if(model is OilModel){
+      cars[index].oils!.remove(model);
+    }
+
+    if(model is OtherMaintenanceModel){
+      cars[index].others!.remove(model);
+    }
+    DbUtil.update(
+        'cars',
+        {
+          'id': car.id!,
+          'brand': car.brand!,
+          'image': car.image!,
+          'model': car.model!,
+          'nick': car.nick!,
+          'refuelings': jsonEncode(car.refuelings!),
+          'images': jsonEncode(car.images!),
+          'calibragens': jsonEncode(car.calibragens!),
+          'oils': jsonEncode(car.oils!),
+          'others': jsonEncode(car.others!)
+        },
+        car.id!);
+
+    notifyListeners();
+  }
+
   Future<void> deleteImage(String s, String id) async {
     CarModel car = cars.firstWhere((car) => car.id == id);
 

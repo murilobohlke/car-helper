@@ -20,7 +20,7 @@ class InfoCarGalleryPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Galeria',
+              'Fotos',
               style: GoogleFonts.lexendDeca(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

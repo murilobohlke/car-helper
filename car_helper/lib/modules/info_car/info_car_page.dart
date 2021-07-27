@@ -5,6 +5,7 @@ import 'package:car_helper/modules/info_car/info_car_maintenance/info_car_mainte
 import 'package:car_helper/modules/info_car/info_car_refueling/info_car_refueling_page.dart';
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -64,40 +65,56 @@ class _InfoCarPageState extends State<InfoCarPage> {
         InfoCarGalleryPage(car: car,),
         InfoCarInfoPage(car),
       ][_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.contrastBackground,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.gasPump),
-            label: 'Histórico',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.tools),
-            label: 'Manutenção',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(
-              FontAwesomeIcons.home,
-              color: AppColors.tertiary,
-            ),
-            icon: Icon(FontAwesomeIcons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.image),
-            label: 'Galeria',
-          ),
-            BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.info),
-            label: 'Informações',
-          ),
+      bottomNavigationBar: CurvedNavigationBar(
+        height: 55,
+        backgroundColor: AppColors.tertiary,
+        buttonBackgroundColor: Colors.white,
+        color: (AppColors.contrastBackground)!,
+        items: <Widget>[
+          Icon(FontAwesomeIcons.gasPump, color:_selectedIndex == 0 ? AppColors.secondary: Colors.grey[700],),
+          Icon(FontAwesomeIcons.tools, color:_selectedIndex == 1 ? AppColors.secondary: Colors.grey[700],),
+          Icon(FontAwesomeIcons.home, color:_selectedIndex == 2 ? AppColors.primary: Colors.grey[700],),
+          Icon(FontAwesomeIcons.image, color:_selectedIndex == 3 ? AppColors.secondary: Colors.grey[700],),
+          Icon(FontAwesomeIcons.info, color:_selectedIndex == 4 ? AppColors.secondary: Colors.grey[700],),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.secondary,
         onTap: _onItemTapped,
-      ));
+        index: _selectedIndex,
+      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   showSelectedLabels: false,
+      //   showUnselectedLabels: false,
+      //   type: BottomNavigationBarType.fixed,
+      //   backgroundColor: AppColors.contrastBackground,
+      //   items: <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(FontAwesomeIcons.gasPump),
+      //       label: 'Histórico',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(FontAwesomeIcons.tools),
+      //       label: 'Manutenção',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       activeIcon: Icon(
+      //         FontAwesomeIcons.home,
+      //         color: AppColors.tertiary,
+      //       ),
+      //       icon: Icon(FontAwesomeIcons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(FontAwesomeIcons.image),
+      //       label: 'Galeria',
+      //     ),
+      //       BottomNavigationBarItem(
+      //       icon: Icon(FontAwesomeIcons.info),
+      //       label: 'Informações',
+      //     ),
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   selectedItemColor: AppColors.secondary,
+      //   onTap: _onItemTapped,
+      // )
+    );
   }
 }

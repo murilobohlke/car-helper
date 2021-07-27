@@ -1,3 +1,4 @@
+
 import 'package:car_helper/shared/models/refueling_model.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
@@ -13,14 +14,15 @@ class DismissibleWidget extends StatelessWidget {
   final String? idImg;
   final Widget child;
   final String text;
+  final del;
 
-  const DismissibleWidget({
-    required this.id,
-    this.ref,
-    this.idImg,
-    required this.child,
-    required this.text,
-  });
+  DismissibleWidget(
+      {required this.id,
+      this.ref,
+      this.idImg,
+      required this.child,
+      required this.text,
+      this.del});
 
   @override
   Widget build(BuildContext context) {
@@ -94,11 +96,13 @@ class DismissibleWidget extends StatelessWidget {
           if (ref != null) {
             Provider.of<CarsProvider>(context, listen: false)
                 .deleteRefueling(ref!, id);
-          }
-          else if (idImg != null) {
+          } else if (idImg != null) {
             Provider.of<CarsProvider>(context, listen: false)
                 .deleteImage(idImg!, id);
-          } else {
+          } else if (del != null) {
+            Provider.of<CarsProvider>(context, listen: false).deleteMaintenance(del, id);
+          }
+          else{
             Provider.of<CarsProvider>(context, listen: false).deleteCar(id);
           }
         },
