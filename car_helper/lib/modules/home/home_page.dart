@@ -1,12 +1,17 @@
 
+import 'dart:io';
+
 import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/app_bar_home/app_bar_home_widget.dart';
 import 'package:car_helper/shared/widgets/car_tile/car_tile_widget.dart';
+import 'package:car_helper/shared/widgets/carousel_car/carousel_car_widget.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +19,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -60,19 +66,34 @@ class HomePage extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey[800],
                                       )))
-                              : ListView.builder(
-                                  itemCount: cars.itemsCount,
-                                  itemBuilder: (context, i) {
-                                    return Container(
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 10),
-                                      child: AnimatedCard(
-                                          direction:
-                                              AnimatedCardDirection.right,
-                                          child: CarTileWidget(
-                                              cars.itemByIndex(i))),
-                                    );
-                                  })
+                              // : ListView.builder(
+                              //     itemCount: cars.itemsCount,
+                              //     itemBuilder: (context, i) {
+                              //       return Container(
+                              //         margin:
+                              //             EdgeInsets.symmetric(vertical: 10),
+                              //         child: AnimatedCard(
+                              //             direction:
+                              //                 AnimatedCardDirection.right,
+                              //             child: CarTileWidget(
+                              //                 cars.itemByIndex(i))),
+                              //       );
+                              //     })
+                              : AnimatedCard(
+                                direction: AnimatedCardDirection.bottom,
+                                child: CarouselSlider(
+                                  options: CarouselOptions(
+                                    height: height * 0.45,
+                                    enableInfiniteScroll: cars.itemsCount == 1 ? false : true,
+                                  ),
+                                  items: cars.items.map((item) => Container(
+                                     margin: EdgeInsets.symmetric(horizontal: 4),
+                                      child: CarouselCarWidget(item, height)
+                                    )
+                                  )
+                                   .toList(),
+                                ),
+                              )
                                 ),
                 ),
               ),

@@ -1,4 +1,3 @@
-
 import 'package:car_helper/shared/models/refueling_model.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
@@ -15,10 +14,12 @@ class DismissibleWidget extends StatelessWidget {
   final Widget child;
   final String text;
   final del;
+  final DismissDirection direction;
 
   DismissibleWidget(
       {required this.id,
       this.ref,
+      this.direction = DismissDirection.endToStart,
       this.idImg,
       required this.child,
       required this.text,
@@ -41,7 +42,7 @@ class DismissibleWidget extends StatelessWidget {
           alignment: Alignment.centerRight,
           padding: EdgeInsets.only(right: 20),
         ),
-        direction: DismissDirection.endToStart,
+        direction: direction,
         confirmDismiss: (_) {
           return showDialog(
               context: context,
@@ -100,9 +101,9 @@ class DismissibleWidget extends StatelessWidget {
             Provider.of<CarsProvider>(context, listen: false)
                 .deleteImage(idImg!, id);
           } else if (del != null) {
-            Provider.of<CarsProvider>(context, listen: false).deleteMaintenance(del, id);
-          }
-          else{
+            Provider.of<CarsProvider>(context, listen: false)
+                .deleteMaintenance(del, id);
+          } else {
             Provider.of<CarsProvider>(context, listen: false).deleteCar(id);
           }
         },
