@@ -9,29 +9,45 @@ class ShowTextWidget extends StatelessWidget {
   final IconData? icon;
   final bool isWhite;
   final double textSize;
+  final bool isLeft;
+  final CrossAxisAlignment cross;
 
-  const ShowTextWidget({Key? key, this.textSize = 18, this.isWhite = false, this.icon, required this.label, required this.text}) : super(key: key);
+  const ShowTextWidget(
+      {Key? key,
+      this.textSize = 18,
+      this.isWhite = false,
+      this.icon,
+      this.cross = CrossAxisAlignment.center,
+      this.isLeft = false,
+      required this.label,
+      required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: isWhite? Colors.white : Colors.grey[300],
+        color: isWhite ? Colors.white : Colors.grey[300],
         borderRadius: BorderRadius.circular(15),
       ),
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: Row(
         children: [
-          if(icon!=null)
-          Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Icon(
-              icon,
-              color: AppColors.secondary,
+          if (icon != null)
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Icon(
+                icon,
+                color: AppColors.secondary,
+              ),
             ),
-          ),
-          Spacer(),
+          isLeft
+              ? SizedBox(
+                  width: 15,
+                )
+              : Spacer(),
           Column(
+            crossAxisAlignment: cross,
             children: [
               Text(
                 label,
@@ -40,6 +56,7 @@ class ShowTextWidget extends StatelessWidget {
                   color: AppColors.tertiary,
                 ),
               ),
+              isLeft ? SizedBox(height: 9,) : SizedBox(height: 0,),
               Text(
                 text,
                 style: GoogleFonts.lexendDeca(

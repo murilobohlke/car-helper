@@ -56,42 +56,18 @@ class CarouselCarWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.white,
-                              size: 15,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              car.model!,
-                              style: GoogleFonts.lexendDeca(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
                               FontAwesomeIcons.car,
                               color: Colors.white,
-                              size: 15,
+                              size: 20,
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              car.brand!,
+                              '${car.nick == '' ? car.model : car.nick}',
                               style: GoogleFonts.lexendDeca(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),

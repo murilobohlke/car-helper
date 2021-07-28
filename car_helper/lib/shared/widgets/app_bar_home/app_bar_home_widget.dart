@@ -1,10 +1,7 @@
 import 'package:car_helper/shared/themes/app_colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AppBarHomeWidget extends PreferredSize {
   final double height;
@@ -48,36 +45,36 @@ class AppBarHomeWidget extends PreferredSize {
                 )
               )
             ),
-            Positioned(
-              top: 30,
-              left: 30,
-              right: 10,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Olá, Murilo',
-                      style: GoogleFonts.lexendDeca(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w100,
-                        color: Colors.white,
-                      )
-                    ),
-                    Spacer(),
-                    IconButton(
-                      onPressed: () { 
-                        FirebaseAuth.instance.signOut();
-                        GoogleSignIn _googleSignIn = GoogleSignIn(
-                          scopes: [ 'email',],
-                        );
-                        _googleSignIn.disconnect();
-                        Navigator.of(context).pushReplacementNamed('/auth');
-                        }, 
-                      icon: Icon(FontAwesomeIcons.timesCircle, color: Colors.white,)
-                    ),
-                  ],
-                ),
-            ),
+            // Positioned(
+            //   top: 30,
+            //   left: 30,
+            //   right: 10,
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.end,
+            //       children: [
+            //         Text(
+            //           'Olá, Murilo',
+            //           style: GoogleFonts.lexendDeca(
+            //             fontSize: 15,
+            //             fontWeight: FontWeight.w100,
+            //             color: Colors.white,
+            //           )
+            //         ),
+            //         Spacer(),
+            //         IconButton(
+            //           onPressed: () { 
+            //             FirebaseAuth.instance.signOut();
+            //             GoogleSignIn _googleSignIn = GoogleSignIn(
+            //               scopes: [ 'email',],
+            //             );
+            //             _googleSignIn.disconnect();
+            //             Navigator.of(context).pushReplacementNamed('/auth');
+            //             }, 
+            //           icon: Icon(FontAwesomeIcons.timesCircle, color: Colors.white,)
+            //         ),
+            //       ],
+            //     ),
+            // ),
             Positioned(
               top: 140,
               left: 0,
