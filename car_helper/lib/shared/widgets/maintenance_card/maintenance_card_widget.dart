@@ -1,5 +1,6 @@
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
+import 'package:car_helper/shared/widgets/maintenance_card/maintenance_controller.dart';
 import 'package:car_helper/shared/widgets/show_text/show_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,8 @@ class MaintenanceCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = MaintenanceController();
+
     return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
@@ -38,9 +41,9 @@ class MaintenanceCardWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 10,),
-                    ShowTextWidget( label: 'Próxima Troca de Óleo', text: '21/06/2021 ou 98521 Km', isWhite: true,),
+                    ShowTextWidget( label: 'Próxima Troca de Óleo', text: controller.nextChangeOil(data.oils!), isWhite: true,),
                     SizedBox(height: 10,),
-                    ShowTextWidget( label: 'Próxima Calibragem', text: '15/07/2021', isWhite: true,)
+                    ShowTextWidget( label: 'Próxima Calibragem', text: controller.nextCalibragem(data.calibragens!), isWhite: true,)
                   ],
                 ),
               )

@@ -1,5 +1,5 @@
 import 'package:car_helper/shared/models/car_model.dart';
-import 'package:car_helper/shared/providers/fuel_controller.dart';
+import 'package:car_helper/shared/widgets/refueling_card/fuel_controller.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:car_helper/shared/widgets/show_text/show_text_widget.dart';
 import 'package:flutter/material.dart';

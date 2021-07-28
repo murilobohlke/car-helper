@@ -43,7 +43,9 @@ class InfoCarHomePage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                MaintenanceCardWidget(data: car),
+                Consumer<CarsProvider>(
+                    builder: (context, value, child) =>
+                        MaintenanceCardWidget(data: value.itemById(car.id!))),
                 SizedBox(
                   height: 20,
                 ),

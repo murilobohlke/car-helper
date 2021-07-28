@@ -13,7 +13,7 @@ class InfoCarMaintencePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(car);
+
     List<dynamic> all() {
       List<dynamic> aux = [
         ...car.calibragens!,

@@ -3,7 +3,7 @@ import 'package:car_helper/shared/models/refueling_model.dart';
 class FuelController {
   String mediaKmL(List<RefuelingModel> data) {
     if (data.length == 1 || data.length == 0) {
-      return '---';
+      return '';
     }
     int i = data.length - 1;
 
@@ -16,7 +16,7 @@ class FuelController {
 
   String distance(List<RefuelingModel> data) {
     if (data.length == 1 || data.length == 0) {
-      return '---';
+      return '';
     }
     int i = data.length - 1;
 
@@ -28,7 +28,7 @@ class FuelController {
 
   String mediaRsKm(List<RefuelingModel> data) {
     if (data.length == 1 || data.length == 0) {
-      return '---';
+      return '';
     }
     int i = data.length - 1;
 
@@ -40,7 +40,7 @@ class FuelController {
 
   String total1(List<RefuelingModel> data) {
     if (data.length == 0) {
-      return '---';
+      return '';
     }
 
     double total = 0.0;
@@ -54,7 +54,7 @@ class FuelController {
 
   String total2(List<RefuelingModel> data) {
     if (data.length == 0) {
-      return '---';
+      return '';
     }
 
     double total = 0.0;
@@ -68,7 +68,7 @@ class FuelController {
 
   String total3(List<RefuelingModel> data) {
     if (data.length == 0) {
-      return '---';
+      return '';
     }
 
     double total = 0.0;

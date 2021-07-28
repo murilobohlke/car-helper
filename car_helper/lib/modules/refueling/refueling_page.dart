@@ -49,10 +49,9 @@ class _RefuelingPageState extends State<RefuelingPage> {
 
   _showTimePicker() {
     showTimePicker(
-      context: context, 
+      context: context,
       initialTime: TimeOfDay.now(),
-      )
-        .then((value) {
+    ).then((value) {
       if (value == null) {
         return;
       }
@@ -113,7 +112,8 @@ class _RefuelingPageState extends State<RefuelingPage> {
                             isLeft: true,
                             label: 'Hora',
                             textSize: 16,
-                            text: '${_selectedTime.hour}:${_selectedTime.minute}',
+                            text:
+                                '${_selectedTime.hour}:${_selectedTime.minute}',
                             icon: FontAwesomeIcons.solidClock,
                           ),
                         ),
@@ -190,7 +190,8 @@ class _RefuelingPageState extends State<RefuelingPage> {
                         onPressed: () {
                           Provider.of<CarsProvider>(context, listen: false)
                               .addRefueling(
-                                  DateFormat('dd/MM/yyyy').format(_selectedDate),
+                                  DateFormat('dd/MM/yyyy')
+                                      .format(_selectedDate),
                                   '${_selectedTime.hour}:${_selectedTime.minute}',
                                   odometerInputTextController.text,
                                   gasolineInputTextController.text,
