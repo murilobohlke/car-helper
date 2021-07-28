@@ -56,7 +56,13 @@ class ShowTextWidget extends StatelessWidget {
                   color: AppColors.tertiary,
                 ),
               ),
-              isLeft ? SizedBox(height: 9,) : SizedBox(height: 0,),
+              isLeft
+                  ? SizedBox(
+                      height: 9,
+                    )
+                  : SizedBox(
+                      height: 0,
+                    ),
               Text(
                 text,
                 style: GoogleFonts.lexendDeca(
