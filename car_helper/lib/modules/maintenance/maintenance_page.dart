@@ -51,6 +51,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
   @override
   Widget build(BuildContext context) {
     final CarModel car = ModalRoute.of(context)!.settings.arguments as CarModel;
+    final _formOil = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -85,42 +86,51 @@ class _MaintenancePageState extends State<MaintenancePage> {
                 },
                 isFilters: true,
                 title: 'Troca de Óleo e Filtros',
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onTap: _showDatePicker,
-                      child: ShowTextWidget(
-                        isWhite: true,
-                        cross: CrossAxisAlignment.start,
-                        isLeft: true,
-                        label: 'Data',
-                        textSize: 16,
-                        text: DateFormat('dd/MM/yyyy').format(_selectedDate),
-                        icon: FontAwesomeIcons.solidCalendarAlt,
+                child: Form(
+                  key: _formOil, 
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: _showDatePicker,
+                        child: ShowTextWidget(
+                          isWhite: true,
+                          cross: CrossAxisAlignment.start,
+                          isLeft: true,
+                          label: 'Data',
+                          textSize: 16,
+                          text: DateFormat('dd/MM/yyyy').format(_selectedDate),
+                          icon: FontAwesomeIcons.solidCalendarAlt,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10,),
-                    TextInputWidget(
-                      keyboard: TextInputType.number,
-                      controller: odometerOil,
-                      label: 'Odômetro',
-                      icon: FontAwesomeIcons.tachometerAlt,
-                      whiteColor: true,
-                    ),
-                    TextInputWidget(
-                      controller: oilOil,
-                      label: 'Óleo',
-                      icon: FontAwesomeIcons.filter,
-                      whiteColor: true,
-                    ),
-                    TextInputWidget(
-                      keyboard: TextInputType.number,
-                      controller: valueOil,
-                      label: 'Valor',
-                      icon: FontAwesomeIcons.moneyBill,
-                      whiteColor: true,
-                    ),
-                  ],
+                      SizedBox(height: 10,),
+                      TextInputWidget(
+                        keyboard: TextInputType.number,
+                        controller: odometerOil,
+                        label: 'Odômetro',
+                        icon: FontAwesomeIcons.tachometerAlt,
+                        whiteColor: true,
+                      ),
+                      TextInputWidget(
+                        controller: oilOil,
+                        label: 'Óleo',
+                        icon: FontAwesomeIcons.filter,
+                        whiteColor: true,
+                      ),
+                      TextInputWidget(
+                        keyboard: TextInputType.number,
+                        controller: valueOil,
+                        label: 'Valor',
+                        icon: FontAwesomeIcons.moneyBill,
+                        whiteColor: true,
+                        validator: (value) {
+                              if (double.parse(value!.replaceAll('R\$', ''))==0.00) {
+                                return 'Insira um valor';
+                              }
+                              return null;
+                            },
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(

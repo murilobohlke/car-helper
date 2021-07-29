@@ -7,7 +7,7 @@ class RefuelingModel {
   String type;
   double price;
   double total;
-  
+ 
   RefuelingModel({
     required this.date,
     required this.hour,

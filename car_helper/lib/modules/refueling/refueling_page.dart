@@ -1,4 +1,5 @@
 import 'package:animated_card/animated_card.dart';
+import 'package:car_helper/modules/refueling/add_refueling_controller.dart';
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
@@ -30,6 +31,9 @@ class _RefuelingPageState extends State<RefuelingPage> {
 
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
+
+  final controller = AddRefuelingController();
+      final _formKey = GlobalKey<FormState>();
 
   _showDatePicker() {
     showDatePicker(
@@ -72,6 +76,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top -
         70;
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -80,134 +85,157 @@ class _RefuelingPageState extends State<RefuelingPage> {
           child: Container(
             width: size.width,
             height: avaliableHeight,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedCard(
-                  direction: AnimatedCardDirection.left,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: _showDatePicker,
-                          child: ShowTextWidget(
-                            cross: CrossAxisAlignment.start,
-                            isLeft: true,
-                            label: 'Data',
-                            textSize: 16,
-                            text:
-                                DateFormat('dd/MM/yyyy').format(_selectedDate),
-                            icon: FontAwesomeIcons.solidCalendarAlt,
+            child: Form(
+              key: _formKey ,
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedCard(
+                    direction: AnimatedCardDirection.left,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: _showDatePicker,
+                            child: ShowTextWidget(
+                              cross: CrossAxisAlignment.start,
+                              isLeft: true,
+                              label: 'Data',
+                              textSize: 16,
+                              text:
+                                  DateFormat('dd/MM/yyyy').format(_selectedDate),
+                              icon: FontAwesomeIcons.solidCalendarAlt,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: _showTimePicker,
-                          child: ShowTextWidget(
-                            cross: CrossAxisAlignment.start,
-                            isLeft: true,
-                            label: 'Hora',
-                            textSize: 16,
-                            text:
-                                '${_selectedTime.hour}:${_selectedTime.minute}',
-                            icon: FontAwesomeIcons.solidClock,
-                          ),
+                        SizedBox(
+                          width: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                AnimatedCard(
-                  direction: AnimatedCardDirection.left,
-                  child: TextInputWidget(
-                    label: 'Odômetro',
-                    controller: odometerInputTextController,
-                    keyboard: TextInputType.number,
-                    icon: FontAwesomeIcons.tachometerAlt,
-                  ),
-                ),
-                AnimatedCard(
-                  direction: AnimatedCardDirection.left,
-                  child: TextInputWidget(
-                    label: 'Tipo de Combustível',
-                    controller: gasolineInputTextController,
-                    icon: FontAwesomeIcons.filter,
-                  ),
-                ),
-                AnimatedCard(
-                  direction: AnimatedCardDirection.left,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextInputWidget(
-                          label: 'Preço Litro',
-                          controller: moneyInputTextController,
-                          keyboard: TextInputType.number,
-                          icon: FontAwesomeIcons.moneyBill,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: TextInputWidget(
-                          label: 'Total',
-                          controller: totalInputTextController,
-                          keyboard: TextInputType.number,
-                          icon: FontAwesomeIcons.wallet,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 80,
-                ),
-                AnimatedCard(
-                  direction: AnimatedCardDirection.right,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: SecondaryButtonWidget(
-                        label: 'Cancelar',
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      )),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                          child: PrimaryButtonWidget(
-                        label: 'Salvar',
-                        onPressed: () {
-                          Provider.of<CarsProvider>(context, listen: false)
-                              .addRefueling(
-                                  DateFormat('dd/MM/yyyy')
-                                      .format(_selectedDate),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: _showTimePicker,
+                            child: ShowTextWidget(
+                              cross: CrossAxisAlignment.start,
+                              isLeft: true,
+                              label: 'Hora',
+                              textSize: 16,
+                              text:
                                   '${_selectedTime.hour}:${_selectedTime.minute}',
-                                  odometerInputTextController.text,
-                                  gasolineInputTextController.text,
-                                  double.parse(moneyInputTextController.text
-                                      .replaceAll('R\$', '')),
-                                  double.parse(totalInputTextController.text
-                                      .replaceAll('R\$', '')),
-                                  car);
-
-                          Navigator.of(context).pop();
-                        },
-                      )),
-                    ],
+                              icon: FontAwesomeIcons.solidClock,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 8,
+                  ),
+                  AnimatedCard(
+                    direction: AnimatedCardDirection.left,
+                    child: TextInputWidget(
+                      label: 'Odômetro',
+                      controller: odometerInputTextController,
+                      keyboard: TextInputType.number,
+                      icon: FontAwesomeIcons.tachometerAlt,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'O odômetro não pode ser vazio';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  AnimatedCard(
+                    direction: AnimatedCardDirection.left,
+                    child: TextInputWidget(
+                      label: 'Tipo de Combustível',
+                      controller: gasolineInputTextController,
+                      icon: FontAwesomeIcons.filter,
+                    ),
+                  ),
+                  AnimatedCard(
+                    direction: AnimatedCardDirection.left,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextInputWidget(
+                            label: 'Preço Litro',
+                            controller: moneyInputTextController,
+                            keyboard: TextInputType.number,
+                            icon: FontAwesomeIcons.moneyBill,
+                            validator: (value) {
+                              if (double.parse(value!.replaceAll('R\$', ''))==0.00) {
+                                return 'Insira um valor';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextInputWidget(
+                            label: 'Total',
+                            controller: totalInputTextController,
+                            keyboard: TextInputType.number,
+                            icon: FontAwesomeIcons.wallet,
+                            validator: (value) {
+                              if (double.parse(value!.replaceAll('R\$', ''))==0.00) {
+                                return 'Insira um valor';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 80,
+                  ),
+                  AnimatedCard(
+                    direction: AnimatedCardDirection.right,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: SecondaryButtonWidget(
+                          label: 'Cancelar',
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                            child: PrimaryButtonWidget(
+                          label: 'Salvar',
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              Provider.of<CarsProvider>(context, listen: false)
+                                  .addRefueling(
+                                      DateFormat('dd/MM/yyyy')
+                                          .format(_selectedDate),
+                                      '${_selectedTime.hour}:${_selectedTime.minute}',
+                                      odometerInputTextController.text,
+                                      gasolineInputTextController.text,
+                                      double.parse(moneyInputTextController.text
+                                          .replaceAll('R\$', '')),
+                                      double.parse(totalInputTextController.text
+                                          .replaceAll('R\$', '')),
+                                      car);
+
+                              Navigator.of(context).pop();
+                            }
+                          },
+                        )),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
