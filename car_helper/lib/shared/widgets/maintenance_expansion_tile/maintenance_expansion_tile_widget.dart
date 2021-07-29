@@ -59,12 +59,13 @@ class _MaintenanceExpansionTileWidgetState
               child: Column(
                 children: [
                   widget.child,
-                  SizedBox(
-                    height: 5,
-                  ),
+                  
                   if (widget.isFilters)
                     Column(
                       children: [
+                        SizedBox(
+                          height: 5,
+                        ),
                         FilterCheckboxTileWidget(
                           label: 'Filtro de Óleo',
                           filter: oilFilter,
@@ -104,7 +105,7 @@ class _MaintenanceExpansionTileWidgetState
                       ],
                     ),
                   SizedBox(
-                    height: 20,
+                    height: widget.isFilters? 35 : 20,
                   ),
                   Row(
                     children: [

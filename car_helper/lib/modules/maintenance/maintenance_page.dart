@@ -154,6 +154,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
                         icon: FontAwesomeIcons.solidCalendarAlt,
                       ),
                     ),
+                    SizedBox(height: 10,),
                     TextInputWidget(
                       controller: librasCalibragem,
                       label: 'Libras',
@@ -202,6 +203,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
                         icon: FontAwesomeIcons.solidCalendarAlt,
                       ),
                     ),
+                    SizedBox(height: 10,),
                     TextInputWidget(
                       controller: odometerOther,
                       label: 'Odômetro',

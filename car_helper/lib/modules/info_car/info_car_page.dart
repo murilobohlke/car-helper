@@ -4,11 +4,13 @@ import 'package:car_helper/modules/info_car/info_car_info/info_car_info_page.dar
 import 'package:car_helper/modules/info_car/info_car_maintenance/info_car_maintenance_page.dart';
 import 'package:car_helper/modules/info_car/info_car_refueling/info_car_refueling_page.dart';
 import 'package:car_helper/shared/models/car_model.dart';
+import 'package:car_helper/shared/providers/cars_provider.dart';
 import 'package:car_helper/shared/themes/app_colors.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class InfoCarPage extends StatefulWidget {
   const InfoCarPage({Key? key}) : super(key: key);
@@ -26,6 +28,11 @@ class _InfoCarPageState extends State<InfoCarPage> {
     setState(() {
       _selectedIndex = index;
     });
+
+    var aux =
+        Provider.of<CarsProvider>(context, listen: false).itemById(car.id!);
+
+    car = aux;
   }
 
   @override
@@ -61,8 +68,12 @@ class _InfoCarPageState extends State<InfoCarPage> {
       body: [
         InfoCarRefuelingPage(car: car),
         InfoCarMaintencePage(car),
-        InfoCarHomePage(car: car,),
-        InfoCarGalleryPage(car: car,),
+        InfoCarHomePage(
+          car: car,
+        ),
+        InfoCarGalleryPage(
+          car: car,
+        ),
         InfoCarInfoPage(car),
       ][_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
@@ -71,11 +82,26 @@ class _InfoCarPageState extends State<InfoCarPage> {
         buttonBackgroundColor: Colors.white,
         color: (AppColors.contrastBackground)!,
         items: <Widget>[
-          Icon(FontAwesomeIcons.gasPump, color:_selectedIndex == 0 ? AppColors.secondary: Colors.grey[700],),
-          Icon(FontAwesomeIcons.tools, color:_selectedIndex == 1 ? AppColors.secondary: Colors.grey[700],),
-          Icon(FontAwesomeIcons.home, color:_selectedIndex == 2 ? AppColors.primary: Colors.grey[700],),
-          Icon(FontAwesomeIcons.image, color:_selectedIndex == 3 ? AppColors.secondary: Colors.grey[700],),
-          Icon(FontAwesomeIcons.info, color:_selectedIndex == 4 ? AppColors.secondary: Colors.grey[700],),
+          Icon(
+            FontAwesomeIcons.gasPump,
+            color: _selectedIndex == 0 ? AppColors.secondary : Colors.grey[700],
+          ),
+          Icon(
+            FontAwesomeIcons.tools,
+            color: _selectedIndex == 1 ? AppColors.secondary : Colors.grey[700],
+          ),
+          Icon(
+            FontAwesomeIcons.home,
+            color: _selectedIndex == 2 ? AppColors.primary : Colors.grey[700],
+          ),
+          Icon(
+            FontAwesomeIcons.image,
+            color: _selectedIndex == 3 ? AppColors.secondary : Colors.grey[700],
+          ),
+          Icon(
+            FontAwesomeIcons.info,
+            color: _selectedIndex == 4 ? AppColors.secondary : Colors.grey[700],
+          ),
         ],
         onTap: _onItemTapped,
         index: _selectedIndex,

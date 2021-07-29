@@ -15,10 +15,9 @@ class FilterCheckboxTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 30,
-          child: CheckboxListTile(
+      child: CheckboxListTile(
         contentPadding: EdgeInsets.all(0),
         activeColor: AppColors.tertiary,
-        tileColor: Colors.red,
         title: Text(
           label,
           style: GoogleFonts.lexendDeca(

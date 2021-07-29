@@ -74,9 +74,13 @@ class CarsProvider with ChangeNotifier {
   Future<void> addCalibragem(String date, double libras, CarModel car) async {
     final newCalibragem = CalibragemModel(date: date, libras: libras);
 
+    var index = cars.indexOf(car);
+
     car.calibragens!.add(newCalibragem);
 
-    DbUtil.update(
+    cars[index].calibragens = car.calibragens!;
+
+    await DbUtil.update(
         'cars',
         {
           'id': car.id!,
@@ -103,10 +107,14 @@ class CarsProvider with ChangeNotifier {
         description: description,
         total: total,
         title: title);
+    
+    var index = cars.indexOf(car);
 
     car.others!.add(newOther);
 
-    DbUtil.update(
+    cars[index].others = car.others!;
+
+    await DbUtil.update(
         'cars',
         {
           'id': car.id!,
@@ -144,10 +152,14 @@ class CarsProvider with ChangeNotifier {
         airFilter: airFilter,
         gasFilter: gasFilter,
         airCFilter: airCFilter);
+    
+    var index = cars.indexOf(car);
 
     car.oils!.add(newOil);
 
-    DbUtil.update(
+    cars[index].oils = car.oils!;
+
+    await DbUtil.update(
         'cars',
         {
           'id': car.id!,
@@ -175,8 +187,12 @@ class CarsProvider with ChangeNotifier {
         type: type,
         price: price,
         total: total);
+    
+    var index = cars.indexOf(car);
 
     car.refuelings!.add(newRefueling);
+
+    cars[index].refuelings = car.refuelings!;
 
     DbUtil.update(
         'cars',
@@ -198,7 +214,10 @@ class CarsProvider with ChangeNotifier {
   }
 
   Future<void> addPhoto(String image, CarModel car) async {
+    var index = cars.indexOf(car);
     car.images!.add(image);
+
+    cars[index].images = car.images!;
 
     DbUtil.update(
         'cars',
@@ -253,7 +272,7 @@ class CarsProvider with ChangeNotifier {
   Future<void> updateCar(
       String brand, String model, String image, String nick, String id) async {
     CarModel car = cars.firstWhere((car) => car.id == id);
-    print(car);
+
     final newCar = CarModel(
         id: id,
         image: image,
@@ -328,15 +347,15 @@ class CarsProvider with ChangeNotifier {
 
     var index = cars.indexOf(car);
 
-    if(model is CalibragemModel){
+    if (model is CalibragemModel) {
       cars[index].calibragens!.remove(model);
     }
 
-    if(model is OilModel){
+    if (model is OilModel) {
       cars[index].oils!.remove(model);
     }
 
-    if(model is OtherMaintenanceModel){
+    if (model is OtherMaintenanceModel) {
       cars[index].others!.remove(model);
     }
     DbUtil.update(
