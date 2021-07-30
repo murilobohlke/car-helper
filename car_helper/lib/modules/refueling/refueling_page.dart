@@ -120,7 +120,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
                               label: 'Hora',
                               textSize: 16,
                               text:
-                                  '${_selectedTime.hour}:${_selectedTime.minute}',
+                              '${_selectedTime.hour}:${_selectedTime.minute > 9 ? _selectedTime.minute : '0' + _selectedTime.minute.toString() }',
                               icon: FontAwesomeIcons.solidClock,
                             ),
                           ),
@@ -134,6 +134,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
                   AnimatedCard(
                     direction: AnimatedCardDirection.left,
                     child: TextInputWidget(
+                      textAction: TextInputAction.next,
                       label: 'Odômetro',
                       controller: odometerInputTextController,
                       keyboard: TextInputType.number,
@@ -149,6 +150,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
                   AnimatedCard(
                     direction: AnimatedCardDirection.left,
                     child: TextInputWidget(
+                      textAction: TextInputAction.next,
                       label: 'Tipo de Combustível',
                       controller: gasolineInputTextController,
                       icon: FontAwesomeIcons.filter,
@@ -160,6 +162,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
                       children: [
                         Expanded(
                           child: TextInputWidget(
+                            textAction: TextInputAction.next,
                             label: 'Preço Litro',
                             controller: moneyInputTextController,
                             keyboard: TextInputType.number,
@@ -218,7 +221,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
                                   .addRefueling(
                                       DateFormat('dd/MM/yyyy')
                                           .format(_selectedDate),
-                                      '${_selectedTime.hour}:${_selectedTime.minute}',
+                                      '${_selectedTime.hour}:${_selectedTime.minute > 9 ? _selectedTime.minute : '0' + _selectedTime.minute.toString() }',
                                       odometerInputTextController.text,
                                       gasolineInputTextController.text,
                                       double.parse(moneyInputTextController.text

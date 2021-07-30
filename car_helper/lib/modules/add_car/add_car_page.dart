@@ -74,6 +74,7 @@ class _AddCarPageState extends State<AddCarPage> {
                   AnimatedCard(
                       direction: AnimatedCardDirection.left,
                       child: TextInputWidget(
+                        textAction: TextInputAction.next,
                         validator: controller.validateBrand,
                         label: 'Marca',
                         controller: brandController,
@@ -85,6 +86,7 @@ class _AddCarPageState extends State<AddCarPage> {
                   AnimatedCard(
                       direction: AnimatedCardDirection.left,
                       child: TextInputWidget(
+                        textAction: TextInputAction.next,
                         validator: controller.validateModel,
                         label: 'Modelo',
                         controller: modelController,

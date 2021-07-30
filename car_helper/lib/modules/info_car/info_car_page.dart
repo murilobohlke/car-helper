@@ -78,29 +78,29 @@ class _InfoCarPageState extends State<InfoCarPage> {
       ][_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
         height: 55,
-        backgroundColor: AppColors.tertiary,
-        buttonBackgroundColor: Colors.white,
+        backgroundColor:_selectedIndex == 2 ? AppColors.primary : AppColors.secondary,
+        buttonBackgroundColor: AppColors.tertiary,
         color: (AppColors.contrastBackground)!,
         items: <Widget>[
           Icon(
             FontAwesomeIcons.gasPump,
-            color: _selectedIndex == 0 ? AppColors.secondary : Colors.grey[700],
+            color: _selectedIndex == 0 ? Colors.white: Colors.grey[600],
           ),
           Icon(
             FontAwesomeIcons.tools,
-            color: _selectedIndex == 1 ? AppColors.secondary : Colors.grey[700],
+            color: _selectedIndex == 1 ? Colors.white : Colors.grey[600],
           ),
           Icon(
             FontAwesomeIcons.home,
-            color: _selectedIndex == 2 ? AppColors.primary : Colors.grey[700],
+            color: _selectedIndex == 2 ? Colors.white : Colors.grey[600],
           ),
           Icon(
             FontAwesomeIcons.image,
-            color: _selectedIndex == 3 ? AppColors.secondary : Colors.grey[700],
+            color: _selectedIndex == 3 ? Colors.white : Colors.grey[600],
           ),
           Icon(
             FontAwesomeIcons.info,
-            color: _selectedIndex == 4 ? AppColors.secondary : Colors.grey[700],
+            color: _selectedIndex == 4 ? Colors.white : Colors.grey[600],
           ),
         ],
         onTap: _onItemTapped,

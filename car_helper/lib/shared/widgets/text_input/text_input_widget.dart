@@ -13,6 +13,7 @@ class TextInputWidget extends StatelessWidget {
   final bool obscure;
   final TextCapitalization textCapt;
   final bool whiteColor;
+  final TextInputAction textAction;
 
   const TextInputWidget({
     Key? key,
@@ -24,7 +25,8 @@ class TextInputWidget extends StatelessWidget {
     this.validator,
     this.controller,
     this.onChanged,
-    this.whiteColor =  false,
+    this.textAction = TextInputAction.done,
+    this.whiteColor = false,
     this.keyboard = TextInputType.text,
   }) : super(key: key);
 
@@ -39,6 +41,7 @@ class TextInputWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: TextFormField(
+            textInputAction: textAction,
             textCapitalization: textCapt,
             obscureText: obscure,
             key: key,
