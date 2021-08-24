@@ -102,7 +102,7 @@ class RefuelingTileWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Preço Litro R\$ ${ref.price}',
+                      'Preço Litro R\$ ${ref.price.toStringAsFixed(2)}',
                       style: GoogleFonts.lexendDeca(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -110,7 +110,7 @@ class RefuelingTileWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Total R\$ ${ref.total}',
+                      'Total R\$ ${ref.total.toStringAsFixed(2)}',
                       style: GoogleFonts.lexendDeca(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
