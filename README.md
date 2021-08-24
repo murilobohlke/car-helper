@@ -5,7 +5,7 @@ O Car Helper é um aplicativo desenvolvido em Flutter para gerenciar carros. Dad
 
 # Layout
 
-<img src="images/img1.png" width="216" height="440"> <img src="images/img2.png" width="216" height="440"> <img src="images/img3.png" width="216" height="440"> <img src="images/img4.png" width="216" height="440"> <img src="images/img5.png" width="216" height="440"> <img src="images/img6.png" width="216" height="440"> 
+<img src="images/img1.png" width="216" height="440"> <img src="images/img2.png" width="216" height="440"> <img src="images/img3.png" width="216" height="440"> <img src="images/img4.png" width="216" height="440"> <img src="images/img5.png" width="216" height="440"> <img src="images/img6.png" width="216" height="440"> <img src="images/img7.png" width="216" height="440"> <img src="images/img8.png" width="216" height="440"> 
 
 
 # Objetivo
