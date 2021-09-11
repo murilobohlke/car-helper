@@ -19,7 +19,7 @@ class PrimaryButtonWidget extends StatelessWidget {
             borderRadius: new BorderRadius.circular(15),
           ),
           primary: AppColors.tertiary,
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           textStyle: GoogleFonts.montserrat(
             fontSize: 15,
             fontWeight: FontWeight.w500,

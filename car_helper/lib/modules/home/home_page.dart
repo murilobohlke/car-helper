@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                                 child: CarouselSlider(
                                   options: CarouselOptions(
                                     height: height * 0.45,
-                                    enableInfiniteScroll: cars.itemsCount == 1 ? false : true,
+                                    enableInfiniteScroll: true,
                                   ),
                                   items: cars.items.map((item) => Container(
                                      margin: EdgeInsets.symmetric(horizontal: 4),
@@ -93,11 +93,18 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              PrimaryButtonWidget(
-                  label: 'Adicionar Carro',
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/add_car');
-                  }),
+              Row(
+                children: [
+                  SizedBox(width: 50,),
+                  Expanded(
+                      child: PrimaryButtonWidget(
+                        label: 'Adicionar Carro',
+                        onPressed: () => Navigator.of(context).pushNamed('/add_car')
+                        ),
+                  ),
+                  SizedBox(width: 50,),
+                ],
+              ),
             ],
           ),
         ),

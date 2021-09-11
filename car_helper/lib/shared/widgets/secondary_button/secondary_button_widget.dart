@@ -21,7 +21,7 @@ class SecondaryButtonWidget extends StatelessWidget {
           ),
           primary: Colors.white,
           onPrimary: AppColors.secondary,
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           textStyle: GoogleFonts.montserrat(
             fontSize: 15,
             fontWeight: FontWeight.w500,

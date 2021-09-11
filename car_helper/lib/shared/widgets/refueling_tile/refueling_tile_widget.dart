@@ -88,7 +88,7 @@ class RefuelingTileWidget extends StatelessWidget {
                   height: 12,
                 ),
                 Text(
-                  'Gasolina ${ref.type}',
+                  '${ref.type}',
                   style: GoogleFonts.lexendDeca(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

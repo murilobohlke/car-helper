@@ -75,11 +75,7 @@ class _SplashPageState extends State<SplashPage> {
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 30),
-              child: Text('Criado por Murilo Böhlke',
-                  style: GoogleFonts.lexendDeca(
-                    fontSize: 15,
-                    color: Colors.white,
-                  )),
+              child: Image.asset('assets/images/company.png'),
             ),
           ],
         ),

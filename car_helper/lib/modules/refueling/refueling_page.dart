@@ -2,6 +2,7 @@ import 'package:animated_card/animated_card.dart';
 import 'package:car_helper/modules/refueling/add_refueling_controller.dart';
 import 'package:car_helper/shared/models/car_model.dart';
 import 'package:car_helper/shared/providers/cars_provider.dart';
+import 'package:car_helper/shared/widgets/dialog_combustiveis/dialog_combustiveis.dart';
 import 'package:car_helper/shared/widgets/primary_button/primary_button_widget.dart';
 import 'package:car_helper/shared/widgets/secondary_button/secondary_button_widget.dart';
 import 'package:car_helper/shared/widgets/show_text/show_text_widget.dart';
@@ -35,6 +36,8 @@ class _RefuelingPageState extends State<RefuelingPage> {
   final controller = AddRefuelingController();
       final _formKey = GlobalKey<FormState>();
 
+  String type = 'Gasolina Aditivada';
+
   _showDatePicker() {
     showDatePicker(
             context: context,
@@ -65,6 +68,21 @@ class _RefuelingPageState extends State<RefuelingPage> {
     });
   }
 
+   Future<void> _showDialogCombustivel() async{
+    List<String> combustiveis = ['Gasolina Aditivada', 'Gasolina Comum', 'Diesel', 'Etanol'];
+    showDialog(
+        context: context,
+        builder: (context) {
+          int index = combustiveis.indexWhere((element) => element == type);
+          return DialogCombustiveis(combustiveis, index);
+        }).then((value) {
+      if(value != null){
+        type = value;
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final CarModel car = ModalRoute.of(context)!.settings.arguments as CarModel;
@@ -74,8 +92,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
     final Size size = MediaQuery.of(context).size;
     final avaliableHeight = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top -
-        70;
+        MediaQuery.of(context).padding.top;
 
     return Scaffold(
       appBar: appBar,
@@ -120,7 +137,7 @@ class _RefuelingPageState extends State<RefuelingPage> {
                               label: 'Hora',
                               textSize: 16,
                               text:
-                              '${_selectedTime.hour}:${_selectedTime.minute > 9 ? _selectedTime.minute : '0' + _selectedTime.minute.toString() }',
+                              '${_selectedTime.hour < 9 ?'0${_selectedTime.hour}':_selectedTime.hour}:${_selectedTime.minute > 9 ? _selectedTime.minute : '0' + _selectedTime.minute.toString() }',
                               icon: FontAwesomeIcons.solidClock,
                             ),
                           ),
@@ -147,15 +164,29 @@ class _RefuelingPageState extends State<RefuelingPage> {
                       },
                     ),
                   ),
-                  AnimatedCard(
+                   AnimatedCard(
                     direction: AnimatedCardDirection.left,
-                    child: TextInputWidget(
-                      textAction: TextInputAction.next,
-                      label: 'Tipo de Combustível',
-                      controller: gasolineInputTextController,
-                      icon: FontAwesomeIcons.filter,
+                    child: GestureDetector(
+                      onTap: () => _showDialogCombustivel(),
+                      child: ShowTextWidget(
+                        cross: CrossAxisAlignment.start,
+                        isLeft: true,
+                        label: 'Tipo de Combustível',
+                        textSize: 16,
+                        text:type,
+                        icon: FontAwesomeIcons.filter,
+                      ),
                     ),
                   ),
+                  // AnimatedCard(
+                  //   direction: AnimatedCardDirection.left,
+                  //   child: TextInputWidget(
+                  //     textAction: TextInputAction.next,
+                  //     label: 'Tipo de Combustível',
+                  //     controller: gasolineInputTextController,
+                  //     icon: FontAwesomeIcons.filter,
+                  //   ),
+                  // ),
                   AnimatedCard(
                     direction: AnimatedCardDirection.left,
                     child: Row(
@@ -221,9 +252,9 @@ class _RefuelingPageState extends State<RefuelingPage> {
                                   .addRefueling(
                                       DateFormat('dd/MM/yyyy')
                                           .format(_selectedDate),
-                                      '${_selectedTime.hour}:${_selectedTime.minute > 9 ? _selectedTime.minute : '0' + _selectedTime.minute.toString() }',
+                                      '${_selectedTime.hour < 9 ?'0${_selectedTime.hour}':_selectedTime.hour}:${_selectedTime.minute > 9 ? _selectedTime.minute : '0' + _selectedTime.minute.toString() }',
                                       odometerInputTextController.text,
-                                      gasolineInputTextController.text,
+                                      type,
                                       double.parse(moneyInputTextController.text
                                           .replaceAll('R\$', '')),
                                       double.parse(totalInputTextController.text
