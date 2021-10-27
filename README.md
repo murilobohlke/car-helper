@@ -19,7 +19,7 @@ O objetivo do desenvolvimento deste projeto é colocar em prática todos os conh
 $ git clone https://github.com/murilobohlke/car-helper.git
 
 - Entrar no diretório:
-$ cd great-places/great_places
+$ cd car-helper/car-helper
 
 - Instalar as dependências:
 $ flutter pub get
